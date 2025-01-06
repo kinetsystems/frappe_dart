@@ -46,7 +46,8 @@ class FrappeV14 implements FrappeApi {
   }
 
   @override
-  Future<DesktopPageResponse> getDesktopPage(DeskPageRequest deskPageRequest) {
+  Future<DesktopPageResponse> getDesktopPage(
+      DesktopPageRequest deskPageRequest) {
     // TODO: implement getDesktopPage
     throw UnimplementedError();
   }

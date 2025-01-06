@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'message.dart';
+import 'package:frappe_dart/src/models/system_settings_response/message.dart';
 
 class SystemSettingsResponse {
-  Message? message;
 
   SystemSettingsResponse({this.message});
 
@@ -15,10 +14,6 @@ class SystemSettingsResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'message': message?.toMap(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [SystemSettingsResponse].
@@ -27,6 +22,11 @@ class SystemSettingsResponse {
       json.decode(data) as Map<String, dynamic>,
     );
   }
+  Message? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message?.toMap(),
+      };
 
   /// `dart:convert`
   ///

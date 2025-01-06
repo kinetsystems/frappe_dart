@@ -24,7 +24,7 @@ void main() async {
         .firstWhere((element) => element.name == 'Users');
 
     final deskPage = await frappe.getDesktopPage(
-      DeskPageRequest(
+      DesktopPageRequest(
         name: page.name,
       ),
     );

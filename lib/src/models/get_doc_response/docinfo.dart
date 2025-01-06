@@ -1,31 +1,9 @@
 import 'dart:convert';
 
-import 'permissions.dart';
-import 'user_info.dart';
+import 'package:frappe_dart/src/models/get_doc_response/permissions.dart';
+import 'package:frappe_dart/src/models/get_doc_response/user_info.dart';
 
 class Docinfo {
-  List<dynamic>? comments;
-  List<dynamic>? shared;
-  List<dynamic>? assignmentLogs;
-  List<dynamic>? attachmentLogs;
-  List<dynamic>? infoLogs;
-  List<dynamic>? likeLogs;
-  List<dynamic>? workflowLogs;
-  String? doctype;
-  String? name;
-  List<dynamic>? attachments;
-  List<dynamic>? communications;
-  List<dynamic>? automatedMessages;
-  List<dynamic>? versions;
-  List<dynamic>? assignments;
-  Permissions? permissions;
-  List<dynamic>? views;
-  List<dynamic>? energyPointLogs;
-  List<dynamic>? additionalTimelineContent;
-  List<dynamic>? milestones;
-  dynamic isDocumentFollowed;
-  String? tags;
-  dynamic documentEmail;
 
   Docinfo({
     this.comments,
@@ -80,6 +58,35 @@ class Docinfo {
         documentEmail: data['document_email'] as dynamic,
       );
 
+  /// `dart:convert`
+  ///
+  /// Parses the string and returns the resulting Json object as [Docinfo].
+  factory Docinfo.fromJson(String data) {
+    return Docinfo.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  List<dynamic>? comments;
+  List<dynamic>? shared;
+  List<dynamic>? assignmentLogs;
+  List<dynamic>? attachmentLogs;
+  List<dynamic>? infoLogs;
+  List<dynamic>? likeLogs;
+  List<dynamic>? workflowLogs;
+  String? doctype;
+  String? name;
+  List<dynamic>? attachments;
+  List<dynamic>? communications;
+  List<dynamic>? automatedMessages;
+  List<dynamic>? versions;
+  List<dynamic>? assignments;
+  Permissions? permissions;
+  List<dynamic>? views;
+  List<dynamic>? energyPointLogs;
+  List<dynamic>? additionalTimelineContent;
+  List<dynamic>? milestones;
+  dynamic isDocumentFollowed;
+  String? tags;
+  dynamic documentEmail;
+
   Map<String, dynamic> toMap() => {
         'comments': comments,
         'shared': shared,
@@ -104,13 +111,6 @@ class Docinfo {
         'tags': tags,
         'document_email': documentEmail,
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Docinfo].
-  factory Docinfo.fromJson(String data) {
-    return Docinfo.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
 
   /// `dart:convert`
   ///

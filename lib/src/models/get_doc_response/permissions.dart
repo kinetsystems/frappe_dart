@@ -1,20 +1,6 @@
 import 'dart:convert';
 
 class Permissions {
-  int? select;
-  int? read;
-  int? write;
-  int? create;
-  int? delete;
-  int? submit;
-  int? cancel;
-  int? amend;
-  int? print;
-  int? email;
-  int? report;
-  int? import;
-  int? export;
-  int? share;
 
   Permissions({
     this.select,
@@ -50,6 +36,27 @@ class Permissions {
         share: data['share'] as int?,
       );
 
+  /// `dart:convert`
+  ///
+  /// Parses the string and returns the resulting Json object as [Permissions].
+  factory Permissions.fromJson(String data) {
+    return Permissions.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  int? select;
+  int? read;
+  int? write;
+  int? create;
+  int? delete;
+  int? submit;
+  int? cancel;
+  int? amend;
+  int? print;
+  int? email;
+  int? report;
+  int? import;
+  int? export;
+  int? share;
+
   Map<String, dynamic> toMap() => {
         'select': select,
         'read': read,
@@ -66,13 +73,6 @@ class Permissions {
         'export': export,
         'share': share,
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Permissions].
-  factory Permissions.fromJson(String data) {
-    return Permissions.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
 
   /// `dart:convert`
   ///

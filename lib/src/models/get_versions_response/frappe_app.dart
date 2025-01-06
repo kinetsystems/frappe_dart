@@ -1,10 +1,6 @@
 import 'dart:convert';
 
 class FrappeApp {
-  String? title;
-  String? description;
-  String? branch;
-  String? version;
 
   FrappeApp({this.title, this.description, this.branch, this.version});
 
@@ -15,19 +11,23 @@ class FrappeApp {
         version: data['version'] as String?,
       );
 
-  Map<String, dynamic> toMap() => {
-        'title': title,
-        'description': description,
-        'branch': branch,
-        'version': version,
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [FrappeApp].
   factory FrappeApp.fromJson(String data) {
     return FrappeApp.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  String? title;
+  String? description;
+  String? branch;
+  String? version;
+
+  Map<String, dynamic> toMap() => {
+        'title': title,
+        'description': description,
+        'branch': branch,
+        'version': version,
+      };
 
   /// `dart:convert`
   ///

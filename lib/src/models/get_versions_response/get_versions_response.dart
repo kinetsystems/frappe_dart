@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'message.dart';
+import 'package:frappe_dart/src/models/get_versions_response/message.dart';
 
 class GetVersionsResponse {
-  Message? message;
 
   GetVersionsResponse({this.message});
 
@@ -15,10 +14,6 @@ class GetVersionsResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'message': message?.toMap(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [GetVersionsResponse].
@@ -27,6 +22,11 @@ class GetVersionsResponse {
       json.decode(data) as Map<String, dynamic>,
     );
   }
+  Message? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message?.toMap(),
+      };
 
   /// `dart:convert`
   ///

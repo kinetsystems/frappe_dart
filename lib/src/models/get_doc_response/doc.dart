@@ -1,81 +1,10 @@
 import 'dart:convert';
 
-import 'onload.dart';
-import 'role.dart';
-import 'social_login.dart';
+import 'package:frappe_dart/src/models/get_doc_response/onload.dart';
+import 'package:frappe_dart/src/models/get_doc_response/role.dart';
+import 'package:frappe_dart/src/models/get_doc_response/social_login.dart';
 
 class Doc {
-  String? name;
-  String? owner;
-  String? creation;
-  String? modified;
-  String? modifiedBy;
-  int? docstatus;
-  int? idx;
-  int? enabled;
-  String? email;
-  String? firstName;
-  String? lastName;
-  String? fullName;
-  String? username;
-  String? language;
-  String? timeZone;
-  int? sendWelcomeEmail;
-  int? unsubscribed;
-  int? muteSounds;
-  String? deskTheme;
-  int? searchBar;
-  int? notifications;
-  int? listSidebar;
-  int? bulkActions;
-  int? viewSwitcher;
-  int? formSidebar;
-  int? timeline;
-  int? dashboard;
-  String? newPassword;
-  int? logoutAllSessions;
-  int? documentFollowNotify;
-  String? documentFollowFrequency;
-  int? followCreatedDocuments;
-  int? followCommentedDocuments;
-  int? followLikedDocuments;
-  int? followAssignedDocuments;
-  int? followSharedDocuments;
-  int? threadNotify;
-  int? sendMeACopy;
-  int? allowedInMentions;
-  int? simultaneousSessions;
-  String? lastIp;
-  int? loginAfter;
-  String? userType;
-  String? lastActive;
-  int? loginBefore;
-  int? bypassRestrictIpCheckIf2faEnabled;
-  String? lastLogin;
-  String? lastKnownVersions;
-  String? onboardingStatus;
-  String? doctype;
-  List<dynamic>? blockModules;
-  List<Role>? roles;
-  List<dynamic>? userEmails;
-  List<dynamic>? defaults;
-  List<SocialLogin>? socialLogins;
-  Onload? onload;
-  int? isStandard;
-  String? module;
-  String? label;
-  String? type;
-  String? function;
-  String? aggregateFunctionBasedOn;
-  String? documentType;
-  int? isPublic;
-  int? showPercentageStats;
-  String? statsTimeInterval;
-  String? filtersJson;
-  String? dynamicFiltersJson;
-  String? lastSyncOn;
-  String? filters_json;
-  String? dynamic_filters_json;
 
   Doc({
     this.name,
@@ -227,6 +156,84 @@ class Doc {
         dynamicFiltersJson: data['dynamic_filters_json'] as String?,
       );
 
+  /// `dart:convert`
+  ///
+  /// Parses the string and returns the resulting Json object as [Doc].
+  factory Doc.fromJson(String data) {
+    return Doc.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  String? name;
+  String? owner;
+  String? creation;
+  String? modified;
+  String? modifiedBy;
+  int? docstatus;
+  int? idx;
+  int? enabled;
+  String? email;
+  String? firstName;
+  String? lastName;
+  String? fullName;
+  String? username;
+  String? language;
+  String? timeZone;
+  int? sendWelcomeEmail;
+  int? unsubscribed;
+  int? muteSounds;
+  String? deskTheme;
+  int? searchBar;
+  int? notifications;
+  int? listSidebar;
+  int? bulkActions;
+  int? viewSwitcher;
+  int? formSidebar;
+  int? timeline;
+  int? dashboard;
+  String? newPassword;
+  int? logoutAllSessions;
+  int? documentFollowNotify;
+  String? documentFollowFrequency;
+  int? followCreatedDocuments;
+  int? followCommentedDocuments;
+  int? followLikedDocuments;
+  int? followAssignedDocuments;
+  int? followSharedDocuments;
+  int? threadNotify;
+  int? sendMeACopy;
+  int? allowedInMentions;
+  int? simultaneousSessions;
+  String? lastIp;
+  int? loginAfter;
+  String? userType;
+  String? lastActive;
+  int? loginBefore;
+  int? bypassRestrictIpCheckIf2faEnabled;
+  String? lastLogin;
+  String? lastKnownVersions;
+  String? onboardingStatus;
+  String? doctype;
+  List<dynamic>? blockModules;
+  List<Role>? roles;
+  List<dynamic>? userEmails;
+  List<dynamic>? defaults;
+  List<SocialLogin>? socialLogins;
+  Onload? onload;
+  int? isStandard;
+  String? module;
+  String? label;
+  String? type;
+  String? function;
+  String? aggregateFunctionBasedOn;
+  String? documentType;
+  int? isPublic;
+  int? showPercentageStats;
+  String? statsTimeInterval;
+  String? filtersJson;
+  String? dynamicFiltersJson;
+  String? lastSyncOn;
+  String? filters_json;
+  String? dynamic_filters_json;
+
   Map<String, dynamic> toMap() => {
         'name': name,
         'owner': owner,
@@ -298,13 +305,6 @@ class Doc {
         'filters_json': filtersJson,
         'dynamic_filters_json': dynamicFiltersJson,
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Doc].
-  factory Doc.fromJson(String data) {
-    return Doc.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
 
   /// `dart:convert`
   ///

@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'defaults.dart';
+import 'package:frappe_dart/src/models/system_settings_response/defaults.dart';
 
 class Message {
-  List<String>? timezones;
-  Defaults? defaults;
 
   Message({this.timezones, this.defaults});
 
@@ -15,17 +13,19 @@ class Message {
             : Defaults.fromMap(data['defaults'] as Map<String, dynamic>),
       );
 
-  Map<String, dynamic> toMap() => {
-        'timezones': timezones,
-        'defaults': defaults?.toMap(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [Message].
   factory Message.fromJson(String data) {
     return Message.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  List<String>? timezones;
+  Defaults? defaults;
+
+  Map<String, dynamic> toMap() => {
+        'timezones': timezones,
+        'defaults': defaults?.toMap(),
+      };
 
   /// `dart:convert`
   ///

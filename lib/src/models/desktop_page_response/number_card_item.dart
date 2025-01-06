@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-class SocialLogin {
-
-  SocialLogin({
+class NumberCardItem {
+  NumberCardItem({
     this.name,
     this.owner,
     this.creation,
@@ -10,15 +9,15 @@ class SocialLogin {
     this.modifiedBy,
     this.docstatus,
     this.idx,
-    this.provider,
-    this.userid,
+    this.numberCardName,
+    this.label,
     this.parent,
     this.parentfield,
     this.parenttype,
     this.doctype,
   });
 
-  factory SocialLogin.fromMap(Map<String, dynamic> data) => SocialLogin(
+  factory NumberCardItem.fromMap(Map<String, dynamic> data) => NumberCardItem(
         name: data['name'] as String?,
         owner: data['owner'] as String?,
         creation: data['creation'] as String?,
@@ -26,8 +25,8 @@ class SocialLogin {
         modifiedBy: data['modified_by'] as String?,
         docstatus: data['docstatus'] as int?,
         idx: data['idx'] as int?,
-        provider: data['provider'] as String?,
-        userid: data['userid'] as String?,
+        numberCardName: data['number_card_name'] as String?,
+        label: data['label'] as String?,
         parent: data['parent'] as String?,
         parentfield: data['parentfield'] as String?,
         parenttype: data['parenttype'] as String?,
@@ -36,9 +35,9 @@ class SocialLogin {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [SocialLogin].
-  factory SocialLogin.fromJson(String data) {
-    return SocialLogin.fromMap(json.decode(data) as Map<String, dynamic>);
+  /// Parses the string and returns the resulting Json object as [NumberCardItem].
+  factory NumberCardItem.fromJson(String data) {
+    return NumberCardItem.fromMap(json.decode(data) as Map<String, dynamic>);
   }
   String? name;
   String? owner;
@@ -47,8 +46,8 @@ class SocialLogin {
   String? modifiedBy;
   int? docstatus;
   int? idx;
-  String? provider;
-  String? userid;
+  String? numberCardName;
+  String? label;
   String? parent;
   String? parentfield;
   String? parenttype;
@@ -62,8 +61,8 @@ class SocialLogin {
         'modified_by': modifiedBy,
         'docstatus': docstatus,
         'idx': idx,
-        'provider': provider,
-        'userid': userid,
+        'number_card_name': numberCardName,
+        'label': label,
         'parent': parent,
         'parentfield': parentfield,
         'parenttype': parenttype,
@@ -72,6 +71,6 @@ class SocialLogin {
 
   /// `dart:convert`
   ///
-  /// Converts [SocialLogin] to a JSON string.
+  /// Converts [NumberCardItem] to a JSON string.
   String toJson() => json.encode(toMap());
 }

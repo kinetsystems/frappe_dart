@@ -1,9 +1,14 @@
 import 'dart:convert';
 
-import 'frappe_app.dart';
+import 'package:frappe_dart/frappe_dart.dart';
+
+import 'package:frappe_dart/src/models/get_versions_response/get_versions_response.dart';
+
+import 'package:frappe_dart/src/models/models.dart';
+
+import 'package:frappe_dart/src/models/get_versions_response/frappe_app.dart';
 
 class Message {
-  Map<String, FrappeApp> frappeApps = {};
 
   Message({
     required this.frappeApps,
@@ -19,19 +24,20 @@ class Message {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    frappeApps.forEach((key, value) {
-      data[key] = value.toMap();
-    });
-    return data;
-  }
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [GetVersionsResponse].
   factory Message.fromJson(String data) {
     return Message.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  Map<String, FrappeApp> frappeApps = {};
+
+  Map<String, dynamic> toMap() {
+    final data = <String, dynamic>{};
+    frappeApps.forEach((key, value) {
+      data[key] = value.toMap();
+    });
+    return data;
   }
 
   /// `dart:convert`

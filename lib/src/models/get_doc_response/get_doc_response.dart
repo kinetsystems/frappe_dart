@@ -4,8 +4,6 @@ import 'package:frappe_dart/src/models/get_doc_response/doc.dart';
 import 'package:frappe_dart/src/models/get_doc_response/docinfo.dart';
 
 class GetDocResponse {
-  List<Doc>? docs;
-  Docinfo? docinfo;
 
   GetDocResponse({this.docs, this.docinfo});
 
@@ -20,17 +18,19 @@ class GetDocResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'docs': docs?.map((e) => e.toMap()).toList(),
-        'docinfo': docinfo?.toMap(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [GetDocResponse].
   factory GetDocResponse.fromJson(String data) {
     return GetDocResponse.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  List<Doc>? docs;
+  Docinfo? docinfo;
+
+  Map<String, dynamic> toMap() => {
+        'docs': docs?.map((e) => e.toMap()).toList(),
+        'docinfo': docinfo?.toMap(),
+      };
 
   /// `dart:convert`
   ///

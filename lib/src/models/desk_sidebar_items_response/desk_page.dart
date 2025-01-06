@@ -1,85 +1,6 @@
 import 'dart:convert';
 
-class DeskSidebarItemsResponse {
-  factory DeskSidebarItemsResponse.fromMap(Map<String, dynamic> data) {
-    return DeskSidebarItemsResponse(
-      message: data['message'] == null
-          ? null
-          : DeskMessage.fromMap(data['message'] as Map<String, dynamic>),
-    );
-  }
-
-  factory DeskSidebarItemsResponse.fromJson(String data) {
-    return DeskSidebarItemsResponse.fromMap(
-      json.decode(data) as Map<String, dynamic>,
-    );
-  }
-  DeskSidebarItemsResponse({this.message});
-
-  final DeskMessage? message;
-
-  Map<String, dynamic> toMap() => {
-        'message': message?.toMap(),
-      };
-
-  String toJson() => json.encode(toMap());
-
-  DeskSidebarItemsResponse copyWith({
-    DeskMessage? message,
-  }) {
-    return DeskSidebarItemsResponse(
-      message: message ?? this.message,
-    );
-  }
-}
-
-class DeskMessage {
-  DeskMessage({
-    this.pages,
-    this.hasAccess,
-    this.hasCreateAccess,
-  });
-
-  factory DeskMessage.fromMap(Map<String, dynamic> data) => DeskMessage(
-        pages: (data['pages'] as List<dynamic>?)
-            ?.map((e) => DeskPage.fromMap(e as Map<String, dynamic>))
-            .toList(),
-        hasAccess: data['has_access'] as bool?,
-        hasCreateAccess: data['has_create_access'] as bool?,
-      );
-
-  factory DeskMessage.fromJson(String data) {
-    return DeskMessage.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-  final List<DeskPage>? pages;
-  final bool? hasAccess;
-  final bool? hasCreateAccess;
-
-  Map<String, dynamic> toMap() => {
-        'pages': pages?.map((e) => e.toMap()).toList(),
-        'has_access': hasAccess,
-        'has_create_access': hasCreateAccess,
-      };
-
-  String toJson() => json.encode(toMap());
-
-  DeskMessage copyWith({
-    List<DeskPage>? pages,
-    bool? hasAccess,
-    bool? hasCreateAccess,
-  }) {
-    return DeskMessage(
-      pages: pages ?? this.pages,
-      hasAccess: hasAccess ?? this.hasAccess,
-      hasCreateAccess: hasCreateAccess ?? this.hasCreateAccess,
-    );
-  }
-}
-
 class DeskPage {
-  factory DeskPage.fromJson(String data) {
-    return DeskPage.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
   DeskPage({
     this.name,
     this.title,
@@ -93,6 +14,9 @@ class DeskPage {
     this.isHidden,
     this.label,
   });
+  factory DeskPage.fromJson(String data) {
+    return DeskPage.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
 
   factory DeskPage.fromMap(Map<String, dynamic> data) => DeskPage(
         name: data['name'] as String?,

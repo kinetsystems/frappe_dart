@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class DeskPageRequest {
-  DeskPageRequest({
+class DesktopPageRequest {
+  DesktopPageRequest({
     this.name,
     this.title,
     this.forUser,
@@ -17,8 +17,8 @@ class DeskPageRequest {
     this.selected,
   });
 
-  factory DeskPageRequest.fromMap(Map<String, dynamic> data) {
-    return DeskPageRequest(
+  factory DesktopPageRequest.fromMap(Map<String, dynamic> data) {
+    return DesktopPageRequest(
       name: data['name'] as String?,
       title: data['title'] as String?,
       forUser: data['for_user'] as String?,
@@ -37,9 +37,9 @@ class DeskPageRequest {
 
   /// `dart:convert`
   ///
-  /// Parses the string and returns the resulting Json object as [DeskPageRequest].
-  factory DeskPageRequest.fromJson(String data) {
-    return DeskPageRequest.fromMap(json.decode(data) as Map<String, dynamic>);
+  /// Parses the string and returns the resulting Json object as [DesktopPageRequest].
+  factory DesktopPageRequest.fromJson(String data) {
+    return DesktopPageRequest.fromMap(json.decode(data) as Map<String, dynamic>);
   }
   String? name;
   String? title;
@@ -73,6 +73,6 @@ class DeskPageRequest {
 
   /// `dart:convert`
   ///
-  /// Converts [DeskPageRequest] to a JSON string.
+  /// Converts [DesktopPageRequest] to a JSON string.
   String toJson() => json.encode(toMap());
 }

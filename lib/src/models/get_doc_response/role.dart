@@ -1,18 +1,6 @@
 import 'dart:convert';
 
 class Role {
-  String? name;
-  String? owner;
-  String? creation;
-  String? modified;
-  String? modifiedBy;
-  int? docstatus;
-  int? idx;
-  String? role;
-  String? parent;
-  String? parentfield;
-  String? parenttype;
-  String? doctype;
 
   Role({
     this.name,
@@ -44,6 +32,25 @@ class Role {
         doctype: data['doctype'] as String?,
       );
 
+  /// `dart:convert`
+  ///
+  /// Parses the string and returns the resulting Json object as [Role].
+  factory Role.fromJson(String data) {
+    return Role.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  String? name;
+  String? owner;
+  String? creation;
+  String? modified;
+  String? modifiedBy;
+  int? docstatus;
+  int? idx;
+  String? role;
+  String? parent;
+  String? parentfield;
+  String? parenttype;
+  String? doctype;
+
   Map<String, dynamic> toMap() => {
         'name': name,
         'owner': owner,
@@ -58,13 +65,6 @@ class Role {
         'parenttype': parenttype,
         'doctype': doctype,
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Role].
-  factory Role.fromJson(String data) {
-    return Role.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
 
   /// `dart:convert`
   ///

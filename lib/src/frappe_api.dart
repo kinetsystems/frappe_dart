@@ -1,6 +1,4 @@
 import 'package:frappe_dart/frappe_dart.dart';
-import 'package:frappe_dart/src/models/get_doc_response/get_doc_response.dart';
-import 'package:frappe_dart/src/models/get_versions_response/get_versions_response.dart';
 import 'package:http/http.dart' as http;
 
 abstract class FrappeApi {
@@ -9,7 +7,7 @@ abstract class FrappeApi {
 
   Future<DeskSidebarItemsResponse> getDeskSideBarItems();
 
-  Future<DesktopPageResponse> getDesktopPage(DeskPageRequest deskPageRequest);
+  Future<DesktopPageResponse> getDesktopPage(DesktopPageRequest deskPageRequest);
 
   Future<NumberCardResponse> getNumberCard(String name);
 

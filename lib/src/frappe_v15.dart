@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
-import 'package:frappe_dart/src/models/get_doc_response/get_doc_response.dart';
-import 'package:frappe_dart/src/models/get_versions_response/get_versions_response.dart';
 import 'package:http/http.dart' as http;
 
 class FrappeV15 implements FrappeApi {
@@ -125,7 +123,7 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<DesktopPageResponse> getDesktopPage(
-    DeskPageRequest deskPageRequest,
+    DesktopPageRequest deskPageRequest,
   ) async {
     final url = Uri.parse(
       '$baseUrl/api/method/frappe.desk.desktop.get_desktop_page',

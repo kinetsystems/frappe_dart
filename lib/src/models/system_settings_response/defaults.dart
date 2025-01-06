@@ -1,20 +1,6 @@
 import 'dart:convert';
 
 class Defaults {
-  String? appName;
-  String? timeZone;
-  String? dateFormat;
-  String? timeFormat;
-  String? numberFormat;
-  String? firstDayOfTheWeek;
-  String? floatPrecision;
-  String? currencyPrecision;
-  String? roundingMethod;
-  String? sessionExpiry;
-  String? twoFactorMethod;
-  String? otpIssuerName;
-  String? minimumPasswordScore;
-  dynamic defaultApp;
 
   Defaults({
     this.appName,
@@ -50,6 +36,27 @@ class Defaults {
         defaultApp: data['default_app'] as dynamic,
       );
 
+  /// `dart:convert`
+  ///
+  /// Parses the string and returns the resulting Json object as [Defaults].
+  factory Defaults.fromJson(String data) {
+    return Defaults.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  String? appName;
+  String? timeZone;
+  String? dateFormat;
+  String? timeFormat;
+  String? numberFormat;
+  String? firstDayOfTheWeek;
+  String? floatPrecision;
+  String? currencyPrecision;
+  String? roundingMethod;
+  String? sessionExpiry;
+  String? twoFactorMethod;
+  String? otpIssuerName;
+  String? minimumPasswordScore;
+  dynamic defaultApp;
+
   Map<String, dynamic> toMap() => {
         'app_name': appName,
         'time_zone': timeZone,
@@ -66,13 +73,6 @@ class Defaults {
         'minimum_password_score': minimumPasswordScore,
         'default_app': defaultApp,
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Defaults].
-  factory Defaults.fromJson(String data) {
-    return Defaults.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
 
   /// `dart:convert`
   ///
