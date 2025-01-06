@@ -27,7 +27,7 @@ class DeskPage {
         public: data['public'] as int?,
         module: data['module'] as String?,
         icon: data['icon'] as String?,
-        indicatorColor: data['indicator_color'] as dynamic,
+        indicatorColor: data['indicator_color'] as String,
         isHidden: data['is_hidden'] as int?,
         label: data['label'] as String?,
       );
@@ -40,7 +40,7 @@ class DeskPage {
   final int? public;
   final String? module;
   final String? icon;
-  final dynamic indicatorColor;
+  final String? indicatorColor;
   final int? isHidden;
   final String? label;
 
@@ -69,7 +69,7 @@ class DeskPage {
     int? public,
     String? module,
     String? icon,
-    dynamic indicatorColor,
+    String? indicatorColor,
     int? isHidden,
     String? label,
   }) {
