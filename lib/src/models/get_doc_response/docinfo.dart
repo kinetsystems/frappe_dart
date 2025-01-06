@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:frappe_dart/src/models/get_doc_response/permissions.dart';
-import 'package:frappe_dart/src/models/get_doc_response/user_info.dart';
 
 class Docinfo {
 

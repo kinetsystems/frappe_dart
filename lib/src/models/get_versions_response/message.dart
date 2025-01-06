@@ -15,7 +15,7 @@ class Message {
   });
 
   factory Message.fromMap(Map<String, dynamic> data) {
-    final Map<String, FrappeApp> frappeApps = {};
+    final frappeApps = <String, FrappeApp>{};
     data.forEach((key, value) {
       frappeApps[key] = FrappeApp.fromMap(value as Map<String, dynamic>);
     });
