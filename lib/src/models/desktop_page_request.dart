@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+/// Represents a request for a desktop page configuration.
 class DesktopPageRequest {
+  /// Creates an instance of [DesktopPageRequest].
   DesktopPageRequest({
     this.name,
     this.title,
@@ -17,6 +19,7 @@ class DesktopPageRequest {
     this.selected,
   });
 
+  /// Creates a [DesktopPageRequest] from a [Map] of key-value pairs.
   factory DesktopPageRequest.fromMap(Map<String, dynamic> data) {
     return DesktopPageRequest(
       name: data['name'] as String?,
@@ -35,28 +38,53 @@ class DesktopPageRequest {
     );
   }
 
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [DesktopPageRequest].
+  /// Parses a JSON string and returns a [DesktopPageRequest] instance.
   factory DesktopPageRequest.fromJson(String data) {
     return DesktopPageRequest.fromMap(
       json.decode(data) as Map<String, dynamic>,
     );
   }
+
+  /// The name of the page.
   String? name;
+
+  /// The title of the page.
   String? title;
+
+  /// The user the page is for.
   String? forUser;
+
+  /// The parent page of this page.
   String? parentPage;
+
+  /// The content of the page.
   String? content;
+
+  /// Whether the page is public (1 for true, 0 for false).
   int? public;
+
+  /// The module the page belongs to.
   String? module;
+
+  /// The icon associated with the page.
   String? icon;
+
+  /// The indicator color for the page.
   String? indicatorColor;
+
+  /// Whether the page is hidden (1 for true, 0 for false).
   int? isHidden;
+
+  /// The label of the page.
   String? label;
+
+  /// Whether the page is editable.
   bool? isEditable;
+
+  /// Whether the page is selected.
   bool? selected;
 
+  /// Converts this instance to a [Map] of key-value pairs.
   Map<String, dynamic> toMap() => {
         'name': name,
         'title': title,
@@ -73,8 +101,6 @@ class DesktopPageRequest {
         'selected': selected,
       };
 
-  /// `dart:convert`
-  ///
-  /// Converts [DesktopPageRequest] to a JSON string.
+  /// Converts this instance to a JSON string.
   String toJson() => json.encode(toMap());
 }

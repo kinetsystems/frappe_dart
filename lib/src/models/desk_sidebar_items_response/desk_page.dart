@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+/// A model class representing a Desk Page in the system.
 class DeskPage {
+  /// Creates a [DeskPage] instance.
   DeskPage({
     this.name,
     this.title,
@@ -14,10 +16,13 @@ class DeskPage {
     this.isHidden,
     this.label,
   });
+
+  /// Creates a [DeskPage] instance from a JSON string.
   factory DeskPage.fromJson(String data) {
     return DeskPage.fromMap(json.decode(data) as Map<String, dynamic>);
   }
 
+  /// Creates a [DeskPage] instance from a map of key-value pairs.
   factory DeskPage.fromMap(Map<String, dynamic> data) => DeskPage(
         name: data['name'] as String?,
         title: data['title'] as String?,
@@ -32,18 +37,40 @@ class DeskPage {
         label: data['label'] as String?,
       );
 
+  /// The unique name of the desk page.
   final String? name;
+
+  /// The title of the desk page.
   final String? title;
+
+  /// The user associated with the desk page.
   final String? forUser;
+
+  /// The parent page of this desk page.
   final String? parentPage;
+
+  /// The content of the desk page.
   final String? content;
+
+  /// Whether the desk page is public (1) or not (0).
   final int? public;
+
+  /// The module associated with the desk page.
   final String? module;
+
+  /// The icon of the desk page.
   final String? icon;
+
+  /// The indicator color for the desk page.
   final String? indicatorColor;
+
+  /// Whether the desk page is hidden (1) or not (0).
   final int? isHidden;
+
+  /// The label of the desk page.
   final String? label;
 
+  /// Converts the [DeskPage] instance to a map of key-value pairs.
   Map<String, dynamic> toMap() => {
         'name': name,
         'title': title,
@@ -58,8 +85,10 @@ class DeskPage {
         'label': label,
       };
 
+  /// Converts the [DeskPage] instance to a JSON string.
   String toJson() => json.encode(toMap());
 
+  /// Creates a copy of the [DeskPage] instance with the specified properties updated.
   DeskPage copyWith({
     String? name,
     String? title,
@@ -69,7 +98,6 @@ class DeskPage {
     int? public,
     String? module,
     String? icon,
-    // String? indicatorColor,
     int? isHidden,
     String? label,
   }) {
@@ -82,7 +110,6 @@ class DeskPage {
       public: public ?? this.public,
       module: module ?? this.module,
       icon: icon ?? this.icon,
-      // indicatorColor: indicatorColor ?? this.indicatorColor,
       isHidden: isHidden ?? this.isHidden,
       label: label ?? this.label,
     );
