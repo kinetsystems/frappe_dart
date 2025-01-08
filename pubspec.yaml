@@ -1,7 +1,15 @@
 name: frappe_dart
 description: A Very Good Project created by Very Good CLI.
 version: 0.0.1
-publish_to: none
+homepage: https://github.com/kinetsystems/frappe_dart
+repository: https://github.com/kinetsystems/frappe_dart
+publish_to: https://pub.dev/publishers/kinetsystems.com
+issue_tracker: https://github.com/kinetsystems/frappe_dart/issues
+topics:
+  - frappe
+  - api
+
+
 
 environment:
   sdk: ^3.5.0
