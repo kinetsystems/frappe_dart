@@ -12,6 +12,5 @@ First, add frappe_dart as a dependency in your `pubspec.yaml` file.
 
 ```yaml
 dependencies:
-  frappe_dart: ^0.0.2
-
+  frappe_dart: ^0.0.3
 ```
