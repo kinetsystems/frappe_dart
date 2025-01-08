@@ -72,7 +72,7 @@ abstract class FrappeApi {
   Future<GetVersionsResponse> getVersions();
 
   Future<http.Response> getList({
-    required List fields,
+    required List<String> fields,
     required int limit,
     required String orderBy,
     required String doctype,

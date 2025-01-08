@@ -75,7 +75,7 @@ class FrappeV13 implements FrappeApi {
 
   @override
   Future<Response> getList({
-    required List fields,
+    required List<String> fields,
     required int limit,
     required String orderBy,
     required String doctype,
