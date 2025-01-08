@@ -3,7 +3,6 @@ description: A frappe api wrapper.
 version: 0.0.2
 homepage: https://github.com/kinetsystems/frappe_dart
 repository: https://github.com/kinetsystems/frappe_dart
-publish_to: https://pub.dev/packages/frappe_dart
 issue_tracker: https://github.com/kinetsystems/frappe_dart/issues
 topics:
   - frappe
