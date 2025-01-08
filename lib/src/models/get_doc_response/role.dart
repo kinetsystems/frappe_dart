@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class Role {
-
   Role({
     this.name,
     this.owner,

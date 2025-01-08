@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:frappe_dart/src/models/system_settings_response/defaults.dart';
 
 class Message {
-
   Message({this.timezones, this.defaults});
 
   factory Message.fromMap(Map<String, dynamic> data) => Message(

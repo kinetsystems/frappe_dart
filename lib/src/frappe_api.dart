@@ -7,7 +7,9 @@ abstract class FrappeApi {
 
   Future<DeskSidebarItemsResponse> getDeskSideBarItems();
 
-  Future<DesktopPageResponse> getDesktopPage(DesktopPageRequest deskPageRequest);
+  Future<DesktopPageResponse> getDesktopPage(
+    DesktopPageRequest deskPageRequest,
+  );
 
   Future<NumberCardResponse> getNumberCard(String name);
 

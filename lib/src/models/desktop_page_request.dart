@@ -39,7 +39,9 @@ class DesktopPageRequest {
   ///
   /// Parses the string and returns the resulting Json object as [DesktopPageRequest].
   factory DesktopPageRequest.fromJson(String data) {
-    return DesktopPageRequest.fromMap(json.decode(data) as Map<String, dynamic>);
+    return DesktopPageRequest.fromMap(
+      json.decode(data) as Map<String, dynamic>,
+    );
   }
   String? name;
   String? title;

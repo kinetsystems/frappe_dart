@@ -1,4 +1,3 @@
-
 class LoginResponse {
   LoginResponse({
     this.message,

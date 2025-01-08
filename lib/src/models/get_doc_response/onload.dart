@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class Onload {
-
   Onload({this.allModules});
 
   factory Onload.fromMap(Map<String, dynamic> data) => Onload(

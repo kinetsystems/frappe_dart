@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class LoginRequest {
-
   LoginRequest({this.usr, this.pwd});
 
   factory LoginRequest.fromMap(Map<String, dynamic> data) => LoginRequest(

@@ -5,7 +5,6 @@ import 'package:frappe_dart/src/models/get_doc_response/role.dart';
 import 'package:frappe_dart/src/models/get_doc_response/social_login.dart';
 
 class Doc {
-
   Doc({
     this.name,
     this.owner,

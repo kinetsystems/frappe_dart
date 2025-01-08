@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class Permissions {
-
   Permissions({
     this.select,
     this.read,

@@ -4,7 +4,6 @@ import 'package:frappe_dart/src/models/get_doc_response/doc.dart';
 import 'package:frappe_dart/src/models/get_doc_response/docinfo.dart';
 
 class GetDocResponse {
-
   GetDocResponse({this.docs, this.docinfo});
 
   factory GetDocResponse.fromMap(Map<String, dynamic> data) {

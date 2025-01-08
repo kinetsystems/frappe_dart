@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:frappe_dart/src/models/system_settings_response/message.dart';
 
 class SystemSettingsResponse {
-
   SystemSettingsResponse({this.message});
 
   factory SystemSettingsResponse.fromMap(Map<String, dynamic> data) {

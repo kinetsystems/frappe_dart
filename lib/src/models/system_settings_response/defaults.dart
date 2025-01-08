@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class Defaults {
-
   Defaults({
     this.appName,
     this.timeZone,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class FrappeApp {
-
   FrappeApp({this.title, this.description, this.branch, this.version});
 
   factory FrappeApp.fromMap(Map<String, dynamic> data) => FrappeApp(

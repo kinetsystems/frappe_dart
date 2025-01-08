@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:frappe_dart/src/models/get_doc_response/permissions.dart';
 
 class Docinfo {
-
   Docinfo({
     this.comments,
     this.shared,

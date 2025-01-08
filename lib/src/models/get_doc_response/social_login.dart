@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class SocialLogin {
-
   SocialLogin({
     this.name,
     this.owner,
