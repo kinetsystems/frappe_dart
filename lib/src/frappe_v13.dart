@@ -4,6 +4,36 @@ import 'package:http/http.dart' show Response;
 
 /// A class that implements the Frappe API for version 13.
 class FrappeV13 implements FrappeApi {
+  /// Creates a new instance of [FrappeV13].
+  FrappeV13({
+    required String baseUrl,
+    String? cookie,
+  })  : _baseUrl = baseUrl,
+        _cookie = cookie;
+
+  String _baseUrl;
+  String? _cookie;
+
+  /// The base URL of the Frappe instance.
+  String get baseUrl => _baseUrl;
+
+  /// The cookie used for authentication.
+  String? get cookie => _cookie;
+
+  set baseUrl(String newBaseUrl) {
+    _baseUrl = newBaseUrl;
+  }
+
+  set cookie(String? newCookie) {
+    _cookie = newCookie;
+  }
+
+  @override
+  Future<LoginResponse> login(LoginRequest loginRequest) {
+    // TODO: implement login
+    throw UnimplementedError();
+  }
+
   @override
   Future<Response> addAssignees() {
     // TODO: implement addAssignees
@@ -118,12 +148,6 @@ class FrappeV13 implements FrappeApi {
   @override
   Future<GetDocResponse> getdoc(String doctype, String name) {
     // TODO: implement getdoc
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<LoginResponse> login(LoginRequest loginRequest) {
-    // TODO: implement login
     throw UnimplementedError();
   }
 

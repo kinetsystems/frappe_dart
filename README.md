@@ -1,25 +1,17 @@
 # Frappe Dart
 
-**Frappe Dart** is a Dart Package for frappe api.
+A comprehensive Dart wrapper for interacting with the Frappe API, providing easy access to its features and enabling seamless communication with Frappe-based systems.
 
-## Installation
+## What's New
 
-Add the following to your `pubspec.yaml` file:
+Web Support
+
+## Usage
+
+First, add frappe_dart as a dependency in your `pubspec.yaml` file.
 
 ```yaml
 dependencies:
-  frappe_dart: ^0.0.1
+  frappe_dart: ^0.0.2
 
-```
-
-**Then Run**
-
-```bash
-flutter pub get
-```
-
-or
-
-```bash
-flutter pub add frappe_dart
 ```

@@ -230,8 +230,6 @@ class Doc {
   String? filtersJson;
   String? dynamicFiltersJson;
   String? lastSyncOn;
-  String? filters_json;
-  String? dynamic_filters_json;
 
   Map<String, dynamic> toMap() => {
         'name': name,

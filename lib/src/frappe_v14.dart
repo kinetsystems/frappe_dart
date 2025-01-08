@@ -4,6 +4,30 @@ import 'package:http/http.dart' show Response;
 
 /// A class that implements the Frappe API for version 14.
 class FrappeV14 implements FrappeApi {
+  /// Creates a new instance of [FrappeV14].
+  FrappeV14({
+    required String baseUrl,
+    String? cookie,
+  })  : _baseUrl = baseUrl,
+        _cookie = cookie;
+
+  String _baseUrl;
+  String? _cookie;
+
+  /// The base URL of the Frappe instance.
+  String get baseUrl => _baseUrl;
+
+  /// The cookie used for authentication.
+  String? get cookie => _cookie;
+
+  set baseUrl(String newBaseUrl) {
+    _baseUrl = newBaseUrl;
+  }
+
+  set cookie(String? newCookie) {
+    _cookie = newCookie;
+  }
+
   @override
   Future<Response> addAssignees() {
     // TODO: implement addAssignees

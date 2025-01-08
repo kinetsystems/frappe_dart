@@ -1,7 +1,7 @@
 import 'package:frappe_dart/frappe_dart.dart';
 
 void main() async {
-  var frappe = FrappeV15(
+  final frappe = FrappeV15(
     baseUrl: 'hostname',
   );
 
