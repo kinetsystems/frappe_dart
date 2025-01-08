@@ -1,11 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
 import 'package:http/http.dart' as http;
 
+/// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
+  /// Creates a new instance of [FrappeV15].
   FrappeV15({
     required String baseUrl,
     String? cookie,
@@ -15,7 +16,10 @@ class FrappeV15 implements FrappeApi {
   String _baseUrl;
   String? _cookie;
 
+  /// The base URL of the Frappe instance.
   String get baseUrl => _baseUrl;
+
+  /// The cookie used for authentication.
   String? get cookie => _cookie;
 
   set baseUrl(String newBaseUrl) {
@@ -38,7 +42,7 @@ class FrappeV15 implements FrappeApi {
       );
 
       // Checking the response status
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
 
         // Extracting user ID from cookies if available
@@ -76,7 +80,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return response;
       } else {
         throw Exception(
@@ -117,7 +121,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return DeskSidebarItemsResponse.fromJson(response.body);
       } else {
         throw Exception(
@@ -150,7 +154,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return DesktopPageResponse.fromJson(response.body);
       } else {
         throw Exception(
@@ -186,7 +190,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return NumberCardResponse.fromJson(response.body);
       } else {
         throw Exception(
@@ -297,7 +301,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return GetDocResponse.fromJson(response.body);
       } else {
         throw Exception(
@@ -400,7 +404,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return SystemSettingsResponse.fromJson(response.body);
       } else {
         throw Exception(
@@ -427,7 +431,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok) {
+      if (response.statusCode == 200) {
         return GetVersionsResponse.fromJson(response.body);
       } else {
         throw Exception(

@@ -3,9 +3,14 @@ import 'package:frappe_dart/frappe_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('FrappeDart', () {
+  group('FrappeV15', () {
     test('can be instantiated', () {
-      expect(FrappeDart(), isNotNull);
+      expect(
+        FrappeV15(
+          baseUrl: 'https://example.com',
+        ),
+        isNotNull,
+      );
     });
   });
 }

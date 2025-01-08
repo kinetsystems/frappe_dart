@@ -9,8 +9,6 @@ topics:
   - frappe
   - api
 
-
-
 environment:
   sdk: ^3.5.0
 

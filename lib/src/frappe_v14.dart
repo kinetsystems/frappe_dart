@@ -1,7 +1,8 @@
 import 'package:frappe_dart/src/frappe_api.dart';
 import 'package:frappe_dart/src/models/models.dart';
-import 'package:http/src/response.dart';
+import 'package:http/http.dart' show Response;
 
+/// A class that implements the Frappe API for version 14.
 class FrappeV14 implements FrappeApi {
   @override
   Future<Response> addAssignees() {

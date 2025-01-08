@@ -1,22 +1,30 @@
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:http/http.dart' as http;
 
+/// An abstract class that defines the Frappe API.
 abstract class FrappeApi {
+  /// Logs in the user.
   Future<LoginResponse> login(LoginRequest loginRequest);
+
+  /// Logs out the user.
   Future<http.Response> logout();
 
+  /// Gets the desk sidebar items.
   Future<DeskSidebarItemsResponse> getDeskSideBarItems();
 
+  /// Gets the desktop page.
   Future<DesktopPageResponse> getDesktopPage(
     DesktopPageRequest deskPageRequest,
   );
 
+  /// Gets the number card.
   Future<NumberCardResponse> getNumberCard(String name);
 
   Future<http.Response> getDoctype(
     String doctype,
   );
 
+  /// Fetches the list.
   Future<http.Response> fetchList();
 
   Future<GetDocResponse> getdoc(String doctype, String name);
