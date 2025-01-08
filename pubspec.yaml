@@ -1,5 +1,5 @@
 name: frappe_dart
-description: A Very Good Project created by Very Good CLI.
+description: A frappe api wrapper.
 version: 0.0.1
 homepage: https://github.com/kinetsystems/frappe_dart
 repository: https://github.com/kinetsystems/frappe_dart
