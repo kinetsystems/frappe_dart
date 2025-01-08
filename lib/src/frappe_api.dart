@@ -41,7 +41,7 @@ abstract class FrappeApi {
 
   Future<http.Response> uploadFiles();
 
-  Future<http.Response> saveDocs(String doctype, Map formValue);
+  Future<http.Response> saveDocs();
 
   Future<http.Response> searchLink();
 

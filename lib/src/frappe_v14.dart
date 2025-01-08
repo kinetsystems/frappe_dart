@@ -161,7 +161,7 @@ class FrappeV14 implements FrappeApi {
   }
 
   @override
-  Future<Response> saveDocs(String doctype, Map formValue) {
+  Future<Response> saveDocs() {
     // TODO: implement saveDocs
     throw UnimplementedError();
   }
