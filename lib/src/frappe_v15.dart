@@ -7,16 +7,28 @@ import 'package:http/http.dart' as http;
 
 class FrappeV15 implements FrappeApi {
   FrappeV15({
-    required this.baseUrl,
-    this.cookie,
-  });
+    required String baseUrl,
+    String? cookie,
+  })  : _baseUrl = baseUrl,
+        _cookie = cookie;
 
-  final String baseUrl;
-  final String? cookie;
+  String _baseUrl;
+  String? _cookie;
+
+  String get baseUrl => _baseUrl;
+  String? get cookie => _cookie;
+
+  set baseUrl(String newBaseUrl) {
+    _baseUrl = newBaseUrl;
+  }
+
+  set cookie(String? newCookie) {
+    _cookie = newCookie;
+  }
 
   @override
   Future<LoginResponse> login(LoginRequest loginRequest) async {
-    final url = Uri.parse('$baseUrl/api/method/login');
+    final url = Uri.parse('$_baseUrl/api/method/login');
     try {
       // Sending the POST request
       final response = await http.post(
@@ -54,17 +66,15 @@ class FrappeV15 implements FrappeApi {
   @override
   Future<http.Response> logout() async {
     final url = Uri.parse(
-      '$baseUrl/api/method/logout',
+      '$_baseUrl/api/method/logout',
     );
     try {
       final response = await http.post(
         url,
         headers: {
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
       );
-
-      print(response.body);
 
       if (response.statusCode == HttpStatus.ok) {
         return response;
@@ -96,14 +106,14 @@ class FrappeV15 implements FrappeApi {
   @override
   Future<DeskSidebarItemsResponse> getDeskSideBarItems() async {
     final url = Uri.parse(
-      '$baseUrl/api/method/frappe.desk.desktop.get_workspace_sidebar_items',
+      '$_baseUrl/api/method/frappe.desk.desktop.get_workspace_sidebar_items',
     );
     try {
       final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
       );
 
@@ -126,14 +136,14 @@ class FrappeV15 implements FrappeApi {
     DesktopPageRequest deskPageRequest,
   ) async {
     final url = Uri.parse(
-      '$baseUrl/api/method/frappe.desk.desktop.get_desktop_page',
+      '$_baseUrl/api/method/frappe.desk.desktop.get_desktop_page',
     );
     try {
       final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
         body: {
           'page': deskPageRequest.toJson(),
@@ -159,7 +169,7 @@ class FrappeV15 implements FrappeApi {
     String name,
   ) async {
     final url = Uri.parse(
-      '$baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result',
+      '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result',
     );
     try {
       final numberCardDoc = await getdoc('Number Card', name);
@@ -168,7 +178,7 @@ class FrappeV15 implements FrappeApi {
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
         body: {
           'doc': numberCardDoc.docs?[0].toJson(),
@@ -272,14 +282,14 @@ class FrappeV15 implements FrappeApi {
   @override
   Future<GetDocResponse> getdoc(String doctype, String name) async {
     final url = Uri.parse(
-      '$baseUrl/api/method/frappe.desk.form.load.getdoc',
+      '$_baseUrl/api/method/frappe.desk.form.load.getdoc',
     );
     try {
       final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
         body: {
           'doctype': doctype,
@@ -380,13 +390,13 @@ class FrappeV15 implements FrappeApi {
   @override
   Future<SystemSettingsResponse> getSystemSettings() async {
     final url = Uri.parse(
-      '$baseUrl/api/method/frappe.core.doctype.system_settings.system_settings.load',
+      '$_baseUrl/api/method/frappe.core.doctype.system_settings.system_settings.load',
     );
     try {
       final response = await http.post(
         url,
         headers: {
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
       );
 
@@ -407,13 +417,13 @@ class FrappeV15 implements FrappeApi {
   @override
   Future<GetVersionsResponse> getVersions() async {
     final url = Uri.parse(
-      '$baseUrl/api/method/frappe.utils.change_log.get_versions',
+      '$_baseUrl/api/method/frappe.utils.change_log.get_versions',
     );
     try {
       final response = await http.post(
         url,
         headers: {
-          'Cookie': cookie ?? '',
+          'Cookie': _cookie ?? '',
         },
       );
 

@@ -13,10 +13,7 @@ void main() async {
       ),
     );
 
-    frappe = FrappeV15(
-      baseUrl: 'hostname',
-      cookie: authResponse.cookie,
-    );
+    frappe.cookie = authResponse.cookie;
 
     final sidebarItems = await frappe.getDeskSideBarItems();
 

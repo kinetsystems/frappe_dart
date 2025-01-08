@@ -27,7 +27,7 @@ class DeskPage {
         public: data['public'] as int?,
         module: data['module'] as String?,
         icon: data['icon'] as String?,
-        indicatorColor: data['indicator_color'] as String,
+        indicatorColor: data['indicator_color'] as String?,
         isHidden: data['is_hidden'] as int?,
         label: data['label'] as String?,
       );
@@ -69,7 +69,7 @@ class DeskPage {
     int? public,
     String? module,
     String? icon,
-    String? indicatorColor,
+    // String? indicatorColor,
     int? isHidden,
     String? label,
   }) {
@@ -82,7 +82,7 @@ class DeskPage {
       public: public ?? this.public,
       module: module ?? this.module,
       icon: icon ?? this.icon,
-      indicatorColor: indicatorColor ?? this.indicatorColor,
+      // indicatorColor: indicatorColor ?? this.indicatorColor,
       isHidden: isHidden ?? this.isHidden,
       label: label ?? this.label,
     );
