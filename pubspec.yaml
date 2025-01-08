@@ -3,7 +3,7 @@ description: A Very Good Project created by Very Good CLI.
 version: 0.0.1
 homepage: https://github.com/kinetsystems/frappe_dart
 repository: https://github.com/kinetsystems/frappe_dart
-publish_to: https://pub.dev/packages/frappe_dart
+publish_to: https://pub.dev/publishers/kinetsystems.com
 issue_tracker: https://github.com/kinetsystems/frappe_dart/issues
 topics:
   - frappe
