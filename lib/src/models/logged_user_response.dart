@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 class LoggedUserResponse {
-  String? message;
-
   LoggedUserResponse({this.message});
 
   factory LoggedUserResponse.fromMap(Map<String, dynamic> data) {
@@ -11,17 +9,19 @@ class LoggedUserResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'message': message,
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [LoggedUserResponse].
   factory LoggedUserResponse.fromJson(String data) {
     return LoggedUserResponse.fromMap(
-        json.decode(data) as Map<String, dynamic>);
+      json.decode(data) as Map<String, dynamic>,
+    );
   }
+  String? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message,
+      };
 
   /// `dart:convert`
   ///

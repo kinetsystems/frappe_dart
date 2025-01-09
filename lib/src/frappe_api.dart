@@ -10,8 +10,8 @@ abstract class FrappeApi {
 
   /// Logs out the current user.
   ///
-  /// Returns an [http.Response] indicating the result of the logout operation.
-  Future<http.Response> logout();
+  /// Returns an [LogoutResponse] indicating the result of the logout operation.
+  Future<LogoutResponse> logout();
 
   /// Retrieves the logged user
   ///
@@ -37,8 +37,8 @@ abstract class FrappeApi {
 
   /// Retrieves details of a specific doctype.
   ///
-  /// Takes the [doctype] as a parameter and returns an [http.Response].
-  Future<http.Response> getDoctype(String doctype);
+  /// Takes the [doctype] as a parameter and returns an [GetDoctypeResponse].
+  Future<GetDoctypeResponse> getDoctype(String doctype);
 
   /// Fetches a list of items.
   ///
@@ -185,7 +185,7 @@ abstract class FrappeApi {
   Future<AppsResponse> getApps();
 
   /// Retrieves the user info
-  /// 
+  ///
   /// Returns an [UserInfoResponse] containing the user info.
   Future<UserInfoResponse> getUserInfo();
 }

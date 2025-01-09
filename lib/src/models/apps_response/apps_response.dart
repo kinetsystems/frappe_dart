@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'message.dart';
+import 'package:frappe_dart/src/models/apps_response/message.dart';
 
 class AppsResponse {
-  List<Message>? message;
-
   AppsResponse({this.message});
 
   factory AppsResponse.fromMap(Map<String, dynamic> data) => AppsResponse(
@@ -13,16 +11,17 @@ class AppsResponse {
             .toList(),
       );
 
-  Map<String, dynamic> toMap() => {
-        'message': message?.map((e) => e.toMap()).toList(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [AppsResponse].
   factory AppsResponse.fromJson(String data) {
     return AppsResponse.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  List<Message>? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message?.map((e) => e.toMap()).toList(),
+      };
 
   /// `dart:convert`
   ///

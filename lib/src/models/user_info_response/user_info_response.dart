@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'message.dart';
+import 'package:frappe_dart/src/models/user_info_response/message.dart';
 
 class UserInfoResponse {
-  Message? message;
-
   UserInfoResponse({this.message});
 
   factory UserInfoResponse.fromMap(Map<String, dynamic> data) {
@@ -15,16 +13,17 @@ class UserInfoResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'message': message?.toMap(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [UserInfoResponse].
   factory UserInfoResponse.fromJson(String data) {
     return UserInfoResponse.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  Message? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message?.toMap(),
+      };
 
   /// `dart:convert`
   ///
