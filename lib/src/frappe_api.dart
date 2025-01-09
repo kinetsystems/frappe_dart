@@ -178,4 +178,14 @@ abstract class FrappeApi {
     required String orderBy,
     required String doctype,
   });
+
+  /// Retrieves the list of apps
+  ///
+  /// Returns an [AppsResponse] containing the list of apps.
+  Future<AppsResponse> getApps();
+
+  /// Retrieves the user info
+  /// 
+  /// Returns an [UserInfoResponse] containing the user info.
+  Future<UserInfoResponse> getUserInfo();
 }
