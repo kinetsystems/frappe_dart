@@ -444,4 +444,31 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
+
+  @override
+  Future<LoggedUserResponse> getLoggerUser() async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.auth.get_logged_user',
+    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Cookie': _cookie ?? '',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return LoggedUserResponse.fromJson(response.body);
+      } else {
+        throw Exception(
+          'Failed to get logged user. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while retrieving logged user: $e',
+      );
+    }
+  }
 }

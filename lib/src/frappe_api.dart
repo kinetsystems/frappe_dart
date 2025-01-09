@@ -13,6 +13,11 @@ abstract class FrappeApi {
   /// Returns an [http.Response] indicating the result of the logout operation.
   Future<http.Response> logout();
 
+  /// Retrieves the logged user
+  ///
+  /// Returns a [LoggedUserResponse] containing the user's username or email.
+  Future<LoggedUserResponse> getLoggerUser();
+
   /// Retrieves the desk sidebar items.
   ///
   /// Returns a [DeskSidebarItemsResponse] with the list of sidebar items.

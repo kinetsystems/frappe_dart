@@ -4,6 +4,7 @@ export 'desktop_page_request.dart';
 export 'desktop_page_response/desktop_page_response.dart';
 export 'get_doc_response/get_doc_response.dart';
 export 'get_versions_response/get_versions_response.dart';
+export 'logged_user_response.dart';
 export 'login_request.dart';
 export 'login_response.dart';
 export 'number_card_response.dart';

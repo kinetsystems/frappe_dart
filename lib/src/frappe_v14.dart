@@ -232,4 +232,10 @@ class FrappeV14 implements FrappeApi {
     // TODO: implement uploadFiles
     throw UnimplementedError();
   }
+  
+  @override
+  Future<LoggedUserResponse> getLoggerUser() {
+    // TODO: implement getLoggerUser
+    throw UnimplementedError();
+  }
 }
