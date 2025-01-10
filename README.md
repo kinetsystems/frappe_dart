@@ -23,9 +23,6 @@ Once installed, you can use the wrapper to interact with the Frappe API. Here's 
 import 'package:frappe_dart/frappe_dart.dart';
 
 void main() async {
-  import 'package:frappe_dart/frappe_dart.dart';
-
-void main() async {
   final frappeClient = FrappeV15(
     baseUrl: 'https://your-frappe-url.com',
   );
@@ -56,9 +53,6 @@ void main() async {
     print('Error: $error');
   }
 }
-
-}
-
 ```
 
 ## How to extend
