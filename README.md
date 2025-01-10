@@ -63,9 +63,7 @@ You can extend the functionality of frappe_dart to support additional custom API
 import 'package:http/http.dart' as http;
 
 extension FrappeV15Extensions on FrappeV15 {
-  Future<http.Response> newApiEndPoint(
-    CheckOpeningEntryRequest request,
-  ) async {
+  Future<http.Response> newApiEndPoint() async {
     final url = Uri.parse(
       '$baseUrl/api/method/new_api_endpoint',
     );
