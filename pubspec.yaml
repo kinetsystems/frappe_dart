@@ -7,6 +7,7 @@ issue_tracker: https://github.com/kinetsystems/frappe_dart/issues
 topics:
   - frappe
   - api
+  - dart
 
 environment:
   sdk: ^3.5.0
