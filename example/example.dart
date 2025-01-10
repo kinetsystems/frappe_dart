@@ -2,14 +2,14 @@ import 'package:frappe_dart/frappe_dart.dart';
 
 void main() async {
   final frappe = FrappeV15(
-    baseUrl: 'hostname',
+    baseUrl: 'https://your-frappe-url.com',
   );
 
   try {
     final authResponse = await frappe.login(
       LoginRequest(
-        usr: 'usr',
-        pwd: 'pwd',
+        usr: 'your-username',
+        pwd: 'your-password',
       ),
     );
 
