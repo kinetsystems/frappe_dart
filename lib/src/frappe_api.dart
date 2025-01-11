@@ -101,8 +101,8 @@ abstract class FrappeApi {
 
   /// Searches for a link.
   ///
-  /// Returns an [http.Response] containing the search results.
-  Future<http.Response> searchLink();
+  /// Returns an [SearchLinkResponse] containing the search results.
+  Future<SearchLinkResponse> searchLink(SearchLinkRequest searchLinkRequest);
 
   /// Toggles a "like" on a document.
   ///
