@@ -407,6 +407,38 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
+  Future<ValidateLinkResponse> validateLink(
+    ValidateLinkRequest validateLinkRequest,
+  ) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.validate_link',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': _cookie ?? '',
+        },
+        body: validateLinkRequest.toMap(),
+      );
+
+      if (response.statusCode == 200) {
+        return ValidateLinkResponse.fromJson(response.body);
+      } else {
+        throw Exception(
+          'Failed to search link. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while searching link: $e',
+      );
+    }
+  }
+
+  @override
   Future<http.Response> sendEmail() {
     // TODO: implement sendEmail
     throw UnimplementedError();
