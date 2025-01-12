@@ -50,6 +50,8 @@ abstract class FrappeApi {
   /// Takes [doctype] and [name] as parameters and returns a [GetDocResponse].
   Future<GetDocResponse> getdoc(String doctype, String name);
 
+  Future<GetCountResponse> getCount(GetCountRequest getCountRequest);
+
   /// Posts a comment.
   ///
   /// Returns an [http.Response] indicating the result of the operation.

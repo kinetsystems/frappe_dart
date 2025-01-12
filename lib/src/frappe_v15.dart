@@ -341,6 +341,35 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
+  Future<GetCountResponse> getCount(GetCountRequest getCountRequest) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.get_count?doctype=${getCountRequest.doctype}',
+    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': _cookie ?? '',
+        },
+        body: getCountRequest.toMap(),
+      );
+
+      if (response.statusCode == 200) {
+        return GetCountResponse.fromJson(response.body);
+      } else {
+        throw Exception(
+          'Failed to get doc. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while retrieving doc: $e',
+      );
+    }
+  }
+
+  @override
   Future<http.Response> postComment() {
     // TODO: implement postComment
     throw UnimplementedError();
