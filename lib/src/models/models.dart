@@ -4,6 +4,8 @@ export 'desk_sidebar_items_response/desk_page.dart';
 export 'desk_sidebar_items_response/desk_sidebar_items_response.dart';
 export 'desktop_page_request.dart';
 export 'desktop_page_response/desktop_page_response.dart';
+export 'get_count_request.dart';
+export 'get_count_response.dart';
 export 'get_doc_response/get_doc_response.dart';
 export 'get_doctype_response/get_doctype_response.dart';
 export 'get_versions_response/get_versions_response.dart';
