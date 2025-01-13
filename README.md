@@ -2,6 +2,8 @@
 
 A comprehensive Dart wrapper for interacting with the Frappe API, providing easy access to its features and enabling seamless communication with Frappe-based systems.
 
+🚧 **Note:** This project is currently under construction and is not production-ready. Expect significant changes as the project evolves.
+
 ## What's New
 
 - **Web Support**: Now fully supports web applications, allowing integration with Frappe from browsers.
