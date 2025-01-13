@@ -661,5 +661,34 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-}
 
+  Future<http.Response> deleteDoc(
+    DeleteDocRequest deleteDocRequest,
+  ) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.delete',
+    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': _cookie ?? '',
+        },
+        body: deleteDocRequest.toMap(),
+      );
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to delete doc. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while deleting doc: $e',
+      );
+    }
+  }
+}
