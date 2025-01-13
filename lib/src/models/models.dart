@@ -1,5 +1,6 @@
 export 'apps_response/apps_response.dart';
 export 'country_timezone_info_response/country_timezone_info_response.dart';
+export 'delete_doc_request.dart';
 export 'desk_sidebar_items_response/desk_page.dart';
 export 'desk_sidebar_items_response/desk_sidebar_items_response.dart';
 export 'desktop_page_request.dart';

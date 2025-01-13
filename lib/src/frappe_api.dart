@@ -199,4 +199,8 @@ abstract class FrappeApi {
   Future<UserInfoResponse> getUserInfo();
 
   Future<PingResponse> ping();
+
+  Future<http.Response> deleteDoc(
+    DeleteDocRequest deleteDocRequest,
+  );
 }
