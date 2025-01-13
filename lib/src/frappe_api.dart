@@ -203,4 +203,9 @@ abstract class FrappeApi {
   Future<http.Response> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   );
+
+  Future<http.Response> getValue({
+    required String doctype,
+    required String fieldname,
+  });
 }
