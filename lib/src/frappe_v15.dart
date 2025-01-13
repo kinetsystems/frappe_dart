@@ -691,4 +691,34 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
+
+  Future<http.Response> getValue({
+    required String doctype,
+    required String fieldname,
+  }) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.get_value?doctype=${doctype}&fieldname=${fieldname}',
+    );
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Cookie': _cookie ?? '',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to get value. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while getting value: $e',
+      );
+    }
+  }
 }
