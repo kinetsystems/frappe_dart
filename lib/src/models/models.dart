@@ -14,6 +14,7 @@ export 'login_request.dart';
 export 'login_response.dart';
 export 'logout_response.dart';
 export 'number_card_response.dart';
+export 'ping_response.dart';
 export 'search_link_request.dart';
 export 'search_link_response/search_link_response.dart';
 export 'system_settings_response/system_settings_response.dart';

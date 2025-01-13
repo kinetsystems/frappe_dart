@@ -637,4 +637,29 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
+
+  @override
+  Future<PingResponse> ping() async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/ping',
+    );
+    try {
+      final response = await http.post(
+        url,
+      );
+
+      if (response.statusCode == 200) {
+        return PingResponse.fromJson(response.body);
+      } else {
+        throw Exception(
+          'Failed to ping. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while pinging: $e',
+      );
+    }
+  }
 }
+

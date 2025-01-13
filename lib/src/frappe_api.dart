@@ -197,4 +197,6 @@ abstract class FrappeApi {
   ///
   /// Returns an [UserInfoResponse] containing the user info.
   Future<UserInfoResponse> getUserInfo();
+
+  Future<PingResponse> ping();
 }
