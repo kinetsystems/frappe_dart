@@ -251,7 +251,7 @@ class FrappeV15 implements FrappeApi {
     String doctype,
   ) async {
     final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.form.load.getdoc',
+      '$_baseUrl/api/method/frappe.desk.form.load.getdoctype?doctype=$doctype&with_parent=1',
     );
     try {
       final response = await http.post(
