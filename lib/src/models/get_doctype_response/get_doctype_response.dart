@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:frappe_dart/src/models/get_doctype_response/doc.dart';
 
 class GetDoctypeResponse {
-  GetDoctypeResponse({this.docs, this.userSettings});
+  GetDoctypeResponse({
+    this.docs,
+    this.userSettings,
+  });
 
   factory GetDoctypeResponse.fromMap(Map<String, dynamic> data) {
     return GetDoctypeResponse(

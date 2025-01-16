@@ -5,7 +5,8 @@ class Transaction {
 
   factory Transaction.fromMap(Map<String, dynamic> data) => Transaction(
         label: data['label'] as String?,
-        items: data['items'] as List<String>?,
+        items:
+            (data['items'] as List<dynamic>?)?.map((e) => e as String).toList(),
       );
 
   /// `dart:convert`
