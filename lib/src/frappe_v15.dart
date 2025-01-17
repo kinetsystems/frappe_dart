@@ -287,13 +287,57 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<http.Response> getList({
-    required List<String> fields,
-    required int limit,
-    required String orderBy,
     required String doctype,
-  }) {
-    // TODO: implement getList
-    throw UnimplementedError();
+    List<String>? fields,
+    int? limitStart,
+    int? limitPageLength,
+    String? orderBy,
+    String? parent,
+    Map<String, dynamic>? filters,
+    String? groupBy,
+    bool? debug,
+    bool? asDict,
+    Map<String, dynamic>? orFilters,
+  }) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.get_list',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': _cookie ?? '',
+        },
+        body: {
+          'doctype': doctype,
+          if (fields != null) 'fields': jsonEncode(fields),
+          if (filters != null) 'filters': jsonEncode(filters),
+          if (groupBy != null) 'group_by': groupBy,
+          if (orderBy != null) 'order_by': orderBy,
+          if (limitStart != null) 'limit_start': limitStart.toString(),
+          if (limitPageLength != null)
+            'limit_page_length': limitPageLength.toString(),
+          if (parent != null) 'parent': parent,
+          if (debug != null) 'debug': debug.toString(),
+          if (asDict != null) 'as_dict': asDict.toString(),
+          if (orFilters != null) 'or_filters': jsonEncode(orFilters),
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to get doc. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while retrieving doc: $e',
+      );
+    }
   }
 
   @override

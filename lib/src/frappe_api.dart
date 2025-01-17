@@ -182,10 +182,17 @@ abstract class FrappeApi {
   ///
   /// Takes [fields], [limit], [orderBy], and [doctype] as parameters and returns an [http.Response].
   Future<http.Response> getList({
-    required List<String> fields,
-    required int limit,
-    required String orderBy,
     required String doctype,
+    List<String>? fields,
+    int? limitStart,
+    int? limitPageLength,
+    String? orderBy,
+    String? parent,
+    Map<String, dynamic>? filters,
+    String? groupBy,
+    bool? debug,
+    bool? asDict,
+    Map<String, dynamic>? orFilters,
   });
 
   /// Retrieves the list of apps
