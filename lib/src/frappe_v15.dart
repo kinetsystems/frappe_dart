@@ -205,48 +205,6 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> addAssignees() {
-    // TODO: implement addAssignees
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> addReview() {
-    // TODO: implement addReview
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> addTag() {
-    // TODO: implement addTag
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> deleteComment() {
-    // TODO: implement deleteComment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> fetchList() {
-    // TODO: implement fetchList
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> getContactList() {
-    // TODO: implement getContactList
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> getDocinfo(String doctype, String name) {
-    // TODO: implement getDocinfo
-    throw UnimplementedError();
-  }
-
-  @override
   Future<GetDoctypeResponse> getDoctype(
     String doctype,
   ) async {
@@ -277,12 +235,6 @@ class FrappeV15 implements FrappeApi {
         'An error occurred while retrieving doc: $e',
       );
     }
-  }
-
-  @override
-  Future<http.Response> getGroupByCount() {
-    // TODO: implement getGroupByCount
-    throw UnimplementedError();
   }
 
   @override
@@ -338,18 +290,6 @@ class FrappeV15 implements FrappeApi {
         'An error occurred while retrieving doc: $e',
       );
     }
-  }
-
-  @override
-  Future<http.Response> getReportViewCount() {
-    // TODO: implement getReportViewCount
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> getTags() {
-    // TODO: implement getTags
-    throw UnimplementedError();
   }
 
   @override
@@ -411,34 +351,6 @@ class FrappeV15 implements FrappeApi {
         'An error occurred while retrieving doc: $e',
       );
     }
-  }
-
-  @override
-  Future<http.Response> postComment() {
-    // TODO: implement postComment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> removeAssignee() {
-    // TODO: implement removeAssignee
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> removeAttachment(
-    String doctype,
-    String name,
-    String attachmentName,
-  ) {
-    // TODO: implement removeAttachment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> removeTag() {
-    // TODO: implement removeTag
-    throw UnimplementedError();
   }
 
   @override
@@ -509,42 +421,6 @@ class FrappeV15 implements FrappeApi {
         'An error occurred while searching link: $e',
       );
     }
-  }
-
-  @override
-  Future<http.Response> sendEmail() {
-    // TODO: implement sendEmail
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> setPermission() {
-    // TODO: implement setPermission
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> shareAdd() {
-    // TODO: implement shareAdd
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> shareGetUsers() {
-    // TODO: implement shareGetUsers
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> toggleLike() {
-    // TODO: implement toggleLike
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> uploadFiles() {
-    // TODO: implement uploadFiles
-    throw UnimplementedError();
   }
 
   @override
