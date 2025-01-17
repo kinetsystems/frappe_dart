@@ -99,7 +99,9 @@ abstract class FrappeApi {
   /// Saves documents.
   ///
   /// Returns an [http.Response] indicating the result of the operation.
-  Future<http.Response> saveDocs();
+  Future<http.Response> saveDocs(
+    SavedocsRequest savedocsRequest,
+  );
 
   /// Searches for a link.
   ///
