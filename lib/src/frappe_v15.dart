@@ -398,9 +398,35 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> saveDocs() {
-    // TODO: implement saveDocs
-    throw UnimplementedError();
+  Future<http.Response> saveDocs(SavedocsRequest saveDocsRequest) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.desk.form.save.savedocs',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        body: saveDocsRequest.toMap(),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': _cookie ?? '',
+        },
+      );
+
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to save doc. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while saving doc: $e',
+      );
+    }
   }
 
   @override
@@ -662,6 +688,7 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<http.Response> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   ) async {
@@ -692,12 +719,13 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<http.Response> getValue({
     required String doctype,
     required String fieldname,
   }) async {
     final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.get_value?doctype=${doctype}&fieldname=${fieldname}',
+      '$_baseUrl/api/method/frappe.client.get_value?doctype=$doctype&fieldname=$fieldname',
     );
 
     try {
