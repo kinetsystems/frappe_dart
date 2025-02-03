@@ -1,4 +1,5 @@
 import 'package:frappe_dart/frappe_dart.dart';
+import 'package:frappe_dart/src/models/get_request.dart';
 import 'package:http/http.dart' as http;
 
 /// An abstract class that defines the Frappe API.
@@ -111,4 +112,9 @@ abstract class FrappeApi {
     required String doctype,
     required String fieldname,
   });
+
+  /// Retrieves a document by doctype and name.
+  ///
+  /// Takes a [GetRequest] object as input and returns an [http.Response].
+  Future<http.Response> get(GetRequest getRequest);
 }
