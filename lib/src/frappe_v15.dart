@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
-import 'package:frappe_dart/src/models/get_request.dart';
 import 'package:http/http.dart' as http;
 
 /// A class that implements the Frappe API for version 15.
