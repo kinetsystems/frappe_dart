@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/get_request.dart';
 import 'package:http/http.dart' as http;
 
 /// A class that implements the Frappe API for version 15.
@@ -626,6 +627,35 @@ class FrappeV15 implements FrappeApi {
         headers: {
           'Cookie': _cookie ?? '',
         },
+      );
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to get value. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while getting value: $e',
+      );
+    }
+  }
+
+  Future<http.Response> get(GetRequest getRequest) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.get',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Cookie': _cookie ?? '',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: getRequest.toMap(),
       );
 
       if (response.statusCode == 200) {
