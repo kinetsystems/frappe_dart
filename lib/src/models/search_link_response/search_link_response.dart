@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'message.dart';
+import 'package:frappe_dart/src/models/search_link_response/message.dart';
 
 class SearchLinkResponse {
-  List<Message>? message;
 
   SearchLinkResponse({this.message});
 
@@ -15,10 +14,6 @@ class SearchLinkResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'message': message?.map((e) => e.toMap()).toList(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [SearchLinkResponse].
@@ -26,6 +21,11 @@ class SearchLinkResponse {
     return SearchLinkResponse.fromMap(
         json.decode(data) as Map<String, dynamic>);
   }
+  List<Message>? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message?.map((e) => e.toMap()).toList(),
+      };
 
   /// `dart:convert`
   ///

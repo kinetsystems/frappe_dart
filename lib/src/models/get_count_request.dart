@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class GetCountRequest {
-  String? doctype;
 
   GetCountRequest({this.doctype});
 
@@ -11,16 +10,17 @@ class GetCountRequest {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'doctype': doctype,
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [GetCountRequest].
   factory GetCountRequest.fromJson(String data) {
     return GetCountRequest.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  String? doctype;
+
+  Map<String, dynamic> toMap() => {
+        'doctype': doctype,
+      };
 
   /// `dart:convert`
   ///

@@ -1,11 +1,6 @@
 import 'dart:convert';
 
 class SearchLinkRequest {
-  String? txt;
-  String doctype;
-  String? referenceDoctype;
-  int? pageLength;
-  String? query;
 
   SearchLinkRequest({
     this.txt,
@@ -25,6 +20,18 @@ class SearchLinkRequest {
     );
   }
 
+  /// `dart:convert`
+  ///
+  /// Parses the string and returns the resulting Json object as [SearchLinkRequest].
+  factory SearchLinkRequest.fromJson(String data) {
+    return SearchLinkRequest.fromMap(json.decode(data) as Map<String, dynamic>);
+  }
+  String? txt;
+  String doctype;
+  String? referenceDoctype;
+  int? pageLength;
+  String? query;
+
   Map<String, dynamic> toMap() => {
         'txt': txt ?? '',
         'doctype': doctype,
@@ -32,13 +39,6 @@ class SearchLinkRequest {
         if (pageLength != null) 'page_length': pageLength.toString(),
         if (query != null) 'query': query,
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [SearchLinkRequest].
-  factory SearchLinkRequest.fromJson(String data) {
-    return SearchLinkRequest.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
 
   /// `dart:convert`
   ///

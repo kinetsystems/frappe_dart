@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
@@ -30,28 +31,36 @@ class FrappeV15 implements FrappeApi {
     _cookie = newCookie;
   }
 
+  //instantiate dio
+  final Dio dio = Dio();
+
   @override
   Future<LoginResponse> login(LoginRequest loginRequest) async {
-    final url = Uri.parse('$_baseUrl/api/method/login');
+    final url = '$_baseUrl/api/method/login';
     try {
       // Sending the POST request
-      final response = await http.post(
+      final response = await dio.post<LoginResponse>(
         url,
-        body: loginRequest.toMap(),
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data: loginRequest.toMap(),
+        options: Options(
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}),
       );
 
       // Checking the response status
       if (response.statusCode == 200) {
-        final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
+        final responseBody =
+            jsonDecode(response.data.toString()) as Map<String, dynamic>;
 
         // Extracting user ID from cookies if available
         final cookies = response.headers['set-cookie'];
         if (cookies != null) {
-          final userId = _extractUserIdFromCookies(cookies);
-          if (userId != null) {
-            responseBody['user_id'] = userId;
-            responseBody['cookie'] = cookies;
+        // print('Cookies: $cookies');
+          for (final cookie in cookies) {
+            final userId = _extractUserIdFromCookies(cookie);
+            if (userId != null) {
+              responseBody['user_id'] = userId;
+              responseBody['cookie'] = cookies;
+            }
           }
         }
 
@@ -59,7 +68,7 @@ class FrappeV15 implements FrappeApi {
         return LoginResponse.fromJson(responseBody);
       } else {
         throw Exception(
-          'Failed to login. HTTP Status: ${response.statusCode}, Body: ${response.body}',
+          '''Failed to login. Response Status: ${response.statusCode}, Body: ${response.data}''',
         );
       }
     } catch (e) {
@@ -69,22 +78,21 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<LogoutResponse> logout() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/logout',
-    );
+    final url = 
+      '$_baseUrl/api/method/logout';
     try {
-      final response = await http.post(
+      final response = await dio.post<LogoutResponse>(
         url,
-        headers: {
+      options: Options ( headers: {
           'Cookie': _cookie ?? '',
-        },
+        },),
       );
 
       if (response.statusCode == 200) {
-        return LogoutResponse.fromJson(response.body);
+        return LogoutResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
-          'Failed to logout. HTTP Status: ${response.statusCode}',
+          'Failed to logout. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -109,23 +117,22 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<DeskSidebarItemsResponse> getDeskSideBarItems() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.desktop.get_workspace_sidebar_items',
-    );
+    final url = 
+      '$_baseUrl/api/method/frappe.desk.desktop.get_workspace_sidebar_items';
     try {
-      final response = await http.post(
+      final response = await dio.post<DeskSidebarItemsResponse>(
         url,
-        headers: {
+       options: Options( headers: {
           'Content-Type': 'application/json',
           'Cookie': _cookie ?? '',
-        },
+        },)
       );
 
       if (response.statusCode == 200) {
-        return DeskSidebarItemsResponse.fromJson(response.body);
+        return DeskSidebarItemsResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
-          'Failed to get desk sidebar items. HTTP Status: ${response.statusCode}',
+          'Failed to get desk sidebar items. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -139,26 +146,25 @@ class FrappeV15 implements FrappeApi {
   Future<DesktopPageResponse> getDesktopPage(
     DesktopPageRequest deskPageRequest,
   ) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.desktop.get_desktop_page',
-    );
+    final url = 
+      '$_baseUrl/api/method/frappe.desk.desktop.get_desktop_page';
     try {
-      final response = await http.post(
+      final response = await dio.post<DesktopPageResponse>(
         url,
-        headers: {
+      options: Options ( headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': _cookie ?? '',
-        },
-        body: {
+        },),
+        data: {
           'page': deskPageRequest.toJson(),
         },
       );
 
       if (response.statusCode == 200) {
-        return DesktopPageResponse.fromJson(response.body);
+        return DesktopPageResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
-          'Failed to get desk page. HTTP Status: ${response.statusCode}',
+          'Failed to get desk page. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -194,7 +200,7 @@ class FrappeV15 implements FrappeApi {
         return NumberCardResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get desk number card. HTTP Status: ${response.statusCode}',
+          'Failed to get desk number card. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -227,7 +233,7 @@ class FrappeV15 implements FrappeApi {
         return GetDoctypeResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get doc. HTTP Status: ${response.statusCode}',
+          'Failed to get doc. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -282,7 +288,7 @@ class FrappeV15 implements FrappeApi {
         return response;
       } else {
         throw Exception(
-          'Failed to get doc. HTTP Status: ${response.statusCode}',
+          'Failed to get doc. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -314,7 +320,7 @@ class FrappeV15 implements FrappeApi {
         return GetDocResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get doc. HTTP Status: ${response.statusCode}',
+          'Failed to get doc. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -343,7 +349,7 @@ class FrappeV15 implements FrappeApi {
         return GetCountResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get doc. HTTP Status: ${response.statusCode}',
+          'Failed to get doc. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -381,7 +387,7 @@ class FrappeV15 implements FrappeApi {
         return SearchLinkResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to search link. HTTP Status: ${response.statusCode}',
+          'Failed to search link. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -413,7 +419,7 @@ class FrappeV15 implements FrappeApi {
         return ValidateLinkResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to search link. HTTP Status: ${response.statusCode}',
+          'Failed to search link. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -440,7 +446,7 @@ class FrappeV15 implements FrappeApi {
         return SystemSettingsResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get system settings. HTTP Status: ${response.statusCode}',
+          'Failed to get system settings. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -467,7 +473,7 @@ class FrappeV15 implements FrappeApi {
         return GetVersionsResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get versions. HTTP Status: ${response.statusCode}',
+          'Failed to get versions. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -494,7 +500,7 @@ class FrappeV15 implements FrappeApi {
         return LoggedUserResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get logged user. HTTP Status: ${response.statusCode}',
+          'Failed to get logged user. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -521,7 +527,7 @@ class FrappeV15 implements FrappeApi {
         return AppsResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get apps. HTTP Status: ${response.statusCode}',
+          'Failed to get apps. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -548,7 +554,7 @@ class FrappeV15 implements FrappeApi {
         return UserInfoResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to get apps. HTTP Status: ${response.statusCode}',
+          'Failed to get apps. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -572,7 +578,7 @@ class FrappeV15 implements FrappeApi {
         return PingResponse.fromJson(response.body);
       } else {
         throw Exception(
-          'Failed to ping. HTTP Status: ${response.statusCode}',
+          'Failed to ping. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -582,6 +588,7 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<http.Response> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   ) async {
@@ -602,7 +609,7 @@ class FrappeV15 implements FrappeApi {
         return response;
       } else {
         throw Exception(
-          'Failed to delete doc. HTTP Status: ${response.statusCode}',
+          'Failed to delete doc. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -612,12 +619,13 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<http.Response> getValue({
     required String doctype,
     required String fieldname,
   }) async {
     final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.get_value?doctype=${doctype}&fieldname=${fieldname}',
+      '$_baseUrl/api/method/frappe.client.get_value?doctype=$doctype&fieldname=$fieldname',
     );
 
     try {
@@ -632,7 +640,7 @@ class FrappeV15 implements FrappeApi {
         return response;
       } else {
         throw Exception(
-          'Failed to get value. HTTP Status: ${response.statusCode}',
+          'Failed to get value. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
@@ -642,6 +650,7 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<http.Response> get(GetRequest getRequest) async {
     final url = Uri.parse(
       '$_baseUrl/api/method/frappe.client.get',
@@ -661,7 +670,7 @@ class FrappeV15 implements FrappeApi {
         return response;
       } else {
         throw Exception(
-          'Failed to get value. HTTP Status: ${response.statusCode}',
+          'Failed to get value. Response Status: ${response.statusCode}',
         );
       }
     } catch (e) {
