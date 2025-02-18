@@ -1,5 +1,5 @@
+import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
-import 'package:http/http.dart' as http;
 
 /// An abstract class that defines the Frappe API.
 abstract class FrappeApi {
@@ -45,12 +45,13 @@ abstract class FrappeApi {
   /// Takes [doctype] and [name] as parameters and returns a [GetDocResponse].
   Future<GetDocResponse> getdoc(String doctype, String name);
 
+  ///
   Future<GetCountResponse> getCount(GetCountRequest getCountRequest);
 
   /// Saves documents.
   ///
-  /// Returns an [http.Response] indicating the result of the operation.
-  Future<http.Response> saveDocs();
+  /// Returns an [Response] indicating the result of the operation.
+  Future<Map<String,dynamic>> saveDocs();
 
   /// Searches for a link.
   ///
@@ -76,8 +77,9 @@ abstract class FrappeApi {
 
   /// Retrieves a list of items based on the specified parameters.
   ///
-  /// Takes [fields], [limit], [orderBy], and [doctype] as parameters and returns an [http.Response].
-  Future<http.Response> getList({
+  /// Takes [fields], [limit], [orderBy], and [doctype] as parameters
+  /// and returns a [Map].
+  Future<Map<String,dynamic>> getList({
     required String doctype,
     List<String>? fields,
     int? limitStart,
@@ -103,17 +105,17 @@ abstract class FrappeApi {
 
   Future<PingResponse> ping();
 
-  Future<http.Response> deleteDoc(
+  Future<Map<String,dynamic>> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   );
 
-  Future<http.Response> getValue({
+  Future<Map<String,dynamic>> getValue({
     required String doctype,
     required String fieldname,
   });
 
   /// Retrieves a document by doctype and name.
   ///
-  /// Takes a [GetRequest] object as input and returns an [http.Response].
-  Future<http.Response> get(GetRequest getRequest);
+  /// Takes a [GetRequest] object as input and returns a [Map].
+  Future<Map<String,dynamic>> get(GetRequest getRequest);
 }

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
-import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
+// import 'package:http/http.dart' as http;
 
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
@@ -31,7 +31,7 @@ class FrappeV15 implements FrappeApi {
     _cookie = newCookie;
   }
 
-  //instantiate dio
+  ///instantiate of dio
   final Dio dio = Dio();
 
   @override
@@ -39,11 +39,12 @@ class FrappeV15 implements FrappeApi {
     final url = '$_baseUrl/api/method/login';
     try {
       // Sending the POST request
-      final response = await dio.post<LoginResponse>(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
         data: loginRequest.toMap(),
         options: Options(
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}),
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        ),
       );
 
       // Checking the response status
@@ -54,7 +55,7 @@ class FrappeV15 implements FrappeApi {
         // Extracting user ID from cookies if available
         final cookies = response.headers['set-cookie'];
         if (cookies != null) {
-        // print('Cookies: $cookies');
+          // print('Cookies: $cookies');
           for (final cookie in cookies) {
             final userId = _extractUserIdFromCookies(cookie);
             if (userId != null) {
@@ -78,14 +79,15 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<LogoutResponse> logout() async {
-    final url = 
-      '$_baseUrl/api/method/logout';
+    final url = '$_baseUrl/api/method/logout';
     try {
-      final response = await dio.post<LogoutResponse>(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-      options: Options ( headers: {
-          'Cookie': _cookie ?? '',
-        },),
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
       );
 
       if (response.statusCode == 200) {
@@ -117,16 +119,16 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<DeskSidebarItemsResponse> getDeskSideBarItems() async {
-    final url = 
-      '$_baseUrl/api/method/frappe.desk.desktop.get_workspace_sidebar_items';
+    final url =
+        '$_baseUrl/api/method/frappe.desk.desktop.get_workspace_sidebar_items';
     try {
-      final response = await dio.post<DeskSidebarItemsResponse>(
-        url,
-       options: Options( headers: {
-          'Content-Type': 'application/json',
-          'Cookie': _cookie ?? '',
-        },)
-      );
+      final response = await dio.post<Map<String, dynamic>>(url,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Cookie': _cookie ?? '',
+            },
+          ));
 
       if (response.statusCode == 200) {
         return DeskSidebarItemsResponse.fromJson(response.data.toString());
@@ -146,15 +148,16 @@ class FrappeV15 implements FrappeApi {
   Future<DesktopPageResponse> getDesktopPage(
     DesktopPageRequest deskPageRequest,
   ) async {
-    final url = 
-      '$_baseUrl/api/method/frappe.desk.desktop.get_desktop_page';
+    final url = '$_baseUrl/api/method/frappe.desk.desktop.get_desktop_page';
     try {
-      final response = await dio.post<DesktopPageResponse>(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-      options: Options ( headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
         data: {
           'page': deskPageRequest.toJson(),
         },
@@ -178,29 +181,30 @@ class FrappeV15 implements FrappeApi {
   Future<NumberCardResponse> getNumberCard(
     String name,
   ) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result',
-    );
+    final url =
+        '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result';
     try {
       final numberCardDoc = await getdoc('Number Card', name);
 
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: {
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: {
           'doc': numberCardDoc.docs?[0].toJson(),
           'filters': numberCardDoc.docs?[0].dynamicFiltersJson ?? '',
         },
       );
 
       if (response.statusCode == 200) {
-        return NumberCardResponse.fromJson(response.body);
+        return NumberCardResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
-          'Failed to get desk number card. Response Status: ${response.statusCode}',
+          '''Failed to get desk number card. Response Status: ${response.statusCode}''',
         );
       }
     } catch (e) {
@@ -214,23 +218,24 @@ class FrappeV15 implements FrappeApi {
   Future<GetDoctypeResponse> getDoctype(
     String doctype,
   ) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.form.load.getdoctype?doctype=$doctype&with_parent=1',
-    );
+    final url =
+        '$_baseUrl/api/method/frappe.desk.form.load.getdoctype?doctype=$doctype&with_parent=1';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: {
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: {
           'doctype': doctype,
         },
       );
 
       if (response.statusCode == 200) {
-        return GetDoctypeResponse.fromJson(response.body);
+        return GetDoctypeResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get doc. Response Status: ${response.statusCode}',
@@ -244,7 +249,7 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> getList({
+  Future<Map<String, dynamic>> getList({
     required String doctype,
     List<String>? fields,
     int? limitStart,
@@ -257,18 +262,18 @@ class FrappeV15 implements FrappeApi {
     bool? asDict,
     Map<String, dynamic>? orFilters,
   }) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.get_list',
-    );
+    final url = '$_baseUrl/api/method/frappe.client.get_list';
 
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: {
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: {
           'doctype': doctype,
           if (fields != null) 'fields': jsonEncode(fields),
           if (filters != null) 'filters': jsonEncode(filters),
@@ -285,7 +290,7 @@ class FrappeV15 implements FrappeApi {
       );
 
       if (response.statusCode == 200) {
-        return response;
+        return response.data ?? {};
       } else {
         throw Exception(
           'Failed to get doc. Response Status: ${response.statusCode}',
@@ -300,24 +305,24 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<GetDocResponse> getdoc(String doctype, String name) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.form.load.getdoc',
-    );
+    final url = '$_baseUrl/api/method/frappe.desk.form.load.getdoc';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: {
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: {
           'doctype': doctype,
           'name': name,
         },
       );
 
       if (response.statusCode == 200) {
-        return GetDocResponse.fromJson(response.body);
+        return GetDocResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get doc. Response Status: ${response.statusCode}',
@@ -332,21 +337,22 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<GetCountResponse> getCount(GetCountRequest getCountRequest) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.get_count?doctype=${getCountRequest.doctype}',
-    );
+    final url =
+        '$_baseUrl/api/method/frappe.client.get_count?doctype=${getCountRequest.doctype}';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: getCountRequest.toMap(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: getCountRequest.toMap(),
       );
 
       if (response.statusCode == 200) {
-        return GetCountResponse.fromJson(response.body);
+        return GetCountResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get doc. Response Status: ${response.statusCode}',
@@ -360,7 +366,7 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> saveDocs() {
+  Future<Map<String, dynamic>> saveDocs() {
     // TODO: implement saveDocs
     throw UnimplementedError();
   }
@@ -369,22 +375,22 @@ class FrappeV15 implements FrappeApi {
   Future<SearchLinkResponse> searchLink(
     SearchLinkRequest searchLinkRequest,
   ) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.desk.search.search_link',
-    );
+    final url = '$_baseUrl/api/method/frappe.desk.search.search_link';
 
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: searchLinkRequest.toMap(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: searchLinkRequest.toMap(),
       );
 
       if (response.statusCode == 200) {
-        return SearchLinkResponse.fromJson(response.body);
+        return SearchLinkResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to search link. Response Status: ${response.statusCode}',
@@ -401,22 +407,22 @@ class FrappeV15 implements FrappeApi {
   Future<ValidateLinkResponse> validateLink(
     ValidateLinkRequest validateLinkRequest,
   ) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.validate_link',
-    );
+    final url = '$_baseUrl/api/method/frappe.client.validate_link';
 
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: validateLinkRequest.toMap(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: validateLinkRequest.toMap(),
       );
 
       if (response.statusCode == 200) {
-        return ValidateLinkResponse.fromJson(response.body);
+        return ValidateLinkResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to search link. Response Status: ${response.statusCode}',
@@ -431,22 +437,24 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<SystemSettingsResponse> getSystemSettings() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.core.doctype.system_settings.system_settings.load',
-    );
+    final url =
+        '$_baseUrl/api/method/frappe.core.doctype.system_settings.system_settings.load';
+
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Cookie': _cookie ?? '',
-        },
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
       );
 
       if (response.statusCode == 200) {
-        return SystemSettingsResponse.fromJson(response.body);
+        return SystemSettingsResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
-          'Failed to get system settings. Response Status: ${response.statusCode}',
+          '''Failed to get system settings. Response Status: ${response.statusCode}''',
         );
       }
     } catch (e) {
@@ -458,19 +466,20 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<GetVersionsResponse> getVersions() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.utils.change_log.get_versions',
-    );
+    final url = '$_baseUrl/api/method/frappe.utils.change_log.get_versions';
+
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Cookie': _cookie ?? '',
-        },
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
       );
 
       if (response.statusCode == 200) {
-        return GetVersionsResponse.fromJson(response.body);
+        return GetVersionsResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get versions. Response Status: ${response.statusCode}',
@@ -485,19 +494,20 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<LoggedUserResponse> getLoggerUser() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.auth.get_logged_user',
-    );
+    final url = '$_baseUrl/api/method/frappe.auth.get_logged_user';
+
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Cookie': _cookie ?? '',
-        },
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
       );
 
       if (response.statusCode == 200) {
-        return LoggedUserResponse.fromJson(response.body);
+        return LoggedUserResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get logged user. Response Status: ${response.statusCode}',
@@ -512,19 +522,17 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<AppsResponse> getApps() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.apps.get_apps',
-    );
+    final url = '$_baseUrl/api/method/frappe.apps.get_apps';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
+      options: Options ( headers: {
           'Cookie': _cookie ?? '',
-        },
+        },),
       );
 
       if (response.statusCode == 200) {
-        return AppsResponse.fromJson(response.body);
+        return AppsResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get apps. Response Status: ${response.statusCode}',
@@ -539,19 +547,17 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<UserInfoResponse> getUserInfo() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.realtime.get_user_info',
-    );
+    final url = '$_baseUrl/api/method/frappe.realtime.get_user_info';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
+     options: Options  ( headers: {
           'Cookie': _cookie ?? '',
-        },
+        },),
       );
 
       if (response.statusCode == 200) {
-        return UserInfoResponse.fromJson(response.body);
+        return UserInfoResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to get apps. Response Status: ${response.statusCode}',
@@ -566,16 +572,14 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<PingResponse> ping() async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/ping',
-    );
+    final url = '$_baseUrl/api/method/ping';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
       );
 
       if (response.statusCode == 200) {
-        return PingResponse.fromJson(response.body);
+        return PingResponse.fromJson(response.data.toString());
       } else {
         throw Exception(
           'Failed to ping. Response Status: ${response.statusCode}',
@@ -589,24 +593,24 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> deleteDoc(
+  Future<Map<String, dynamic>> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   ) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.delete',
-    );
+    final url = '$_baseUrl/api/method/frappe.client.delete';
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': _cookie ?? '',
-        },
-        body: deleteDocRequest.toMap(),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: deleteDocRequest.toMap(),
       );
 
       if (response.statusCode == 200) {
-        return response;
+        return response.data ?? {};
       } else {
         throw Exception(
           'Failed to delete doc. Response Status: ${response.statusCode}',
@@ -620,24 +624,23 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> getValue({
+  Future<Map<String, dynamic>> getValue({
     required String doctype,
     required String fieldname,
   }) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.get_value?doctype=$doctype&fieldname=$fieldname',
-    );
+    final url =
+        '$_baseUrl/api/method/frappe.client.get_value?doctype=$doctype&fieldname=$fieldname';
 
     try {
-      final response = await http.get(
+      final response = await dio.get<Map<String, dynamic>>(
         url,
-        headers: {
+     options: Options (  headers: {
           'Cookie': _cookie ?? '',
-        },
+        },),
       );
 
       if (response.statusCode == 200) {
-        return response;
+        return response.data??{};
       } else {
         throw Exception(
           'Failed to get value. Response Status: ${response.statusCode}',
@@ -651,23 +654,21 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> get(GetRequest getRequest) async {
-    final url = Uri.parse(
-      '$_baseUrl/api/method/frappe.client.get',
-    );
+  Future<Map<String, dynamic>> get(GetRequest getRequest) async {
+    final url = '$_baseUrl/api/method/frappe.client.get';
 
     try {
-      final response = await http.post(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
-        headers: {
+      options: Options ( headers: {
           'Cookie': _cookie ?? '',
           'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: getRequest.toMap(),
+        },),
+        data: getRequest.toMap(),
       );
 
       if (response.statusCode == 200) {
-        return response;
+        return response.data??{};
       } else {
         throw Exception(
           'Failed to get value. Response Status: ${response.statusCode}',
