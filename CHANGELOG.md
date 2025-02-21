@@ -1,8 +1,17 @@
+## 0.0.5
+
+- **feat**: implement ping api endpoint
+- **feat**: add delete document functionality to Frappe API
+- **feat**: add getValue method to Frappe API for retrieving field values
+- **feat**: implement get_doctype api endpoint
+- **feat**: implement get_list api endpoint
+- **refactor**: remove unused API methods from FrappeApi and FrappeV15
+
 ## 0.0.4
 
-- feat: add getLoggerUser method to FrappeApi and implement in FrappeV15; create LoggedUserResponse model
-- feat: remove deprecated FrappeV13 and FrappeV14; add getApps and getUserInfo methods to FrappeApi
-- feat: add models for InternalLinks, Transaction, CountryTimezoneInfoResponse, and LogoutResponse; update UserInfoResponse and AppsResponse models
+- **feat**: add getLoggerUser method to FrappeApi and implement in FrappeV15; create LoggedUserResponse model
+- **feat**: remove deprecated FrappeV13 and FrappeV14; add getApps and getUserInfo methods to FrappeApi
+- **feat**: add models for InternalLinks, Transaction, CountryTimezoneInfoResponse, and LogoutResponse; update UserInfoResponse and AppsResponse models
 
 ## 0.0.3
 

@@ -206,48 +206,6 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> addAssignees() {
-    // TODO: implement addAssignees
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> addReview() {
-    // TODO: implement addReview
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> addTag() {
-    // TODO: implement addTag
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> deleteComment() {
-    // TODO: implement deleteComment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> fetchList() {
-    // TODO: implement fetchList
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> getContactList() {
-    // TODO: implement getContactList
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> getDocinfo(String doctype, String name) {
-    // TODO: implement getDocinfo
-    throw UnimplementedError();
-  }
-
-  @override
   Future<GetDoctypeResponse> getDoctype(
     String doctype,
   ) async {
@@ -281,32 +239,58 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> getGroupByCount() {
-    // TODO: implement getGroupByCount
-    throw UnimplementedError();
-  }
-
-  @override
   Future<http.Response> getList({
-    required List<String> fields,
-    required int limit,
-    required String orderBy,
     required String doctype,
-  }) {
-    // TODO: implement getList
-    throw UnimplementedError();
-  }
+    List<String>? fields,
+    int? limitStart,
+    int? limitPageLength,
+    String? orderBy,
+    String? parent,
+    Map<String, dynamic>? filters,
+    String? groupBy,
+    bool? debug,
+    bool? asDict,
+    Map<String, dynamic>? orFilters,
+  }) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.get_list',
+    );
 
-  @override
-  Future<http.Response> getReportViewCount() {
-    // TODO: implement getReportViewCount
-    throw UnimplementedError();
-  }
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': _cookie ?? '',
+        },
+        body: {
+          'doctype': doctype,
+          if (fields != null) 'fields': jsonEncode(fields),
+          if (filters != null) 'filters': jsonEncode(filters),
+          if (groupBy != null) 'group_by': groupBy,
+          if (orderBy != null) 'order_by': orderBy,
+          if (limitStart != null) 'limit_start': limitStart.toString(),
+          if (limitPageLength != null)
+            'limit_page_length': limitPageLength.toString(),
+          if (parent != null) 'parent': parent,
+          if (debug != null) 'debug': debug.toString(),
+          if (asDict != null) 'as_dict': asDict.toString(),
+          if (orFilters != null) 'or_filters': jsonEncode(orFilters),
+        },
+      );
 
-  @override
-  Future<http.Response> getTags() {
-    // TODO: implement getTags
-    throw UnimplementedError();
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to get doc. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while retrieving doc: $e',
+      );
+    }
   }
 
   @override
@@ -368,34 +352,6 @@ class FrappeV15 implements FrappeApi {
         'An error occurred while retrieving doc: $e',
       );
     }
-  }
-
-  @override
-  Future<http.Response> postComment() {
-    // TODO: implement postComment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> removeAssignee() {
-    // TODO: implement removeAssignee
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> removeAttachment(
-    String doctype,
-    String name,
-    String attachmentName,
-  ) {
-    // TODO: implement removeAttachment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> removeTag() {
-    // TODO: implement removeTag
-    throw UnimplementedError();
   }
 
   @override
@@ -501,42 +457,6 @@ class FrappeV15 implements FrappeApi {
         'An error occurred while searching link: $e',
       );
     }
-  }
-
-  @override
-  Future<http.Response> sendEmail() {
-    // TODO: implement sendEmail
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> setPermission() {
-    // TODO: implement setPermission
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> shareAdd() {
-    // TODO: implement shareAdd
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> shareGetUsers() {
-    // TODO: implement shareGetUsers
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> toggleLike() {
-    // TODO: implement toggleLike
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<http.Response> uploadFiles() {
-    // TODO: implement uploadFiles
-    throw UnimplementedError();
   }
 
   @override
@@ -744,6 +664,35 @@ class FrappeV15 implements FrappeApi {
         headers: {
           'Cookie': _cookie ?? '',
         },
+      );
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw Exception(
+          'Failed to get value. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception(
+        'An error occurred while getting value: $e',
+      );
+    }
+  }
+
+  Future<http.Response> get(GetRequest getRequest) async {
+    final url = Uri.parse(
+      '$_baseUrl/api/method/frappe.client.get',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Cookie': _cookie ?? '',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: getRequest.toMap(),
       );
 
       if (response.statusCode == 200) {

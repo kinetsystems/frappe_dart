@@ -1,6 +1,6 @@
 name: frappe_dart
 description: A comprehensive Dart wrapper for interacting with the Frappe API, providing easy access to its features and enabling seamless communication with Frappe-based systems.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/kinetsystems/frappe_dart
 repository: https://github.com/kinetsystems/frappe_dart
 issue_tracker: https://github.com/kinetsystems/frappe_dart/issues
