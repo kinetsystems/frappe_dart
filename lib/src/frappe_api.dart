@@ -1,4 +1,5 @@
 import 'package:frappe_dart/frappe_dart.dart';
+import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 import 'package:http/http.dart' as http;
 
 /// An abstract class that defines the Frappe API.
@@ -49,8 +50,13 @@ abstract class FrappeApi {
 
   /// Saves documents.
   ///
-  /// Returns an [http.Response] indicating the result of the operation.
-  Future<http.Response> saveDocs();
+  /// Returns an [SavedocsReponse<T>] indicating the result of the operation.
+  Future<SavedocsReponse<T>> savedocs<T>({
+    required T document,
+    required String action,
+    required String Function() toJson,
+    required T Function(Map<String, dynamic>) fromMap,
+  });
 
   /// Searches for a link.
   ///
