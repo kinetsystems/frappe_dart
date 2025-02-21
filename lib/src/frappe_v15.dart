@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 import 'package:http/http.dart' as http;
 
 /// A class that implements the Frappe API for version 15.
@@ -398,7 +399,12 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<http.Response> saveDocs(SavedocsRequest saveDocsRequest) async {
+  Future<SavedocsReponse<T>> savedocs<T>({
+    required T document,
+    required String action,
+    required String Function() toJson,
+    required T Function(Map<String, dynamic>) fromMap,
+  }) async {
     final url = Uri.parse(
       '$_baseUrl/api/method/frappe.desk.form.save.savedocs',
     );
@@ -406,17 +412,21 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await http.post(
         url,
-        body: saveDocsRequest.toMap(),
+        body: {
+          'doc': toJson(),
+          'action': action,
+        },
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': _cookie ?? '',
         },
       );
 
-      print(response.body);
-
       if (response.statusCode == 200) {
-        return response;
+        return SavedocsReponse.fromJson<T>(
+          response.body,
+          fromMap,
+        );
       } else {
         throw Exception(
           'Failed to save doc. HTTP Status: ${response.statusCode}',
