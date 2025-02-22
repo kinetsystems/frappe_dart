@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 
+import 'models/savedocs_response/savedocs_response.dart';
+
 /// An abstract class that defines the Frappe API.
 abstract class FrappeApi {
   /// Logs in the user.
@@ -50,8 +52,8 @@ abstract class FrappeApi {
 
   /// Saves documents.
   ///
-  /// Returns an [Response] indicating the result of the operation.
-  Future<Map<String,dynamic>> saveDocs();
+  /// Returns an [SavedocsResponse] indicating the result of the operation.
+  Future<SavedocsReponse> saveDocs();
 
   /// Searches for a link.
   ///
