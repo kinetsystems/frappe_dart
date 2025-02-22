@@ -13,11 +13,11 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  http: ^1.2.2
   dio: ^5.8.0+1
 
 dev_dependencies:
-  mocktail: ^1.0.4
+  build_runner: ^2.4.13
+  mockito: ^5.4.4
   test: ^1.25.8
   very_good_analysis: ^7.0.0
 
