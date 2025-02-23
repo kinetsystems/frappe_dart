@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'message.dart';
+import 'package:frappe_dart/src/models/validate_link_response/message.dart';
 
 class ValidateLinkResponse {
-  Message? message;
 
   ValidateLinkResponse({this.message});
 
@@ -15,10 +14,6 @@ class ValidateLinkResponse {
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'message': message?.toMap(),
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [ValidateLinkResponse].
@@ -26,6 +21,11 @@ class ValidateLinkResponse {
     return ValidateLinkResponse.fromMap(
         json.decode(data) as Map<String, dynamic>);
   }
+  Message? message;
+
+  Map<String, dynamic> toMap() => {
+        'message': message?.toMap(),
+      };
 
   /// `dart:convert`
   ///

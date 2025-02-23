@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class Message {
-  String? name;
 
   Message({this.name});
 
@@ -9,16 +8,17 @@ class Message {
         name: data['name'] as String?,
       );
 
-  Map<String, dynamic> toMap() => {
-        'name': name,
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [Message].
   factory Message.fromJson(String data) {
     return Message.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  String? name;
+
+  Map<String, dynamic> toMap() => {
+        'name': name,
+      };
 
   /// `dart:convert`
   ///

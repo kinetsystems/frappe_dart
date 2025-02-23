@@ -1,9 +1,6 @@
 import 'dart:convert';
 
 class GetRequest {
-  String doctype;
-  String? name;
-  String? parent;
 
   GetRequest({
     required this.doctype,
@@ -17,18 +14,21 @@ class GetRequest {
         parent: data['parent'] as String?,
       );
 
-  Map<String, dynamic> toMap() => {
-        'doctype': doctype,
-        if (name != null) 'name': name,
-        if (parent != null) 'parent': parent,
-      };
-
   /// `dart:convert`
   ///
   /// Parses the string and returns the resulting Json object as [GetRequest].
   factory GetRequest.fromJson(String data) {
     return GetRequest.fromMap(json.decode(data) as Map<String, dynamic>);
   }
+  String doctype;
+  String? name;
+  String? parent;
+
+  Map<String, dynamic> toMap() => {
+        'doctype': doctype,
+        if (name != null) 'name': name,
+        if (parent != null) 'parent': parent,
+      };
 
   /// `dart:convert`
   ///
