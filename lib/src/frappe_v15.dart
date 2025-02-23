@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/dio_error/handle_dio_err.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
@@ -54,17 +55,12 @@ class FrappeV15 implements FrappeApi {
       if (response.statusCode == 200) {
         final responseBody = response.data!;
 
-        // Extracting user ID from cookies if available
-        final cookies = response.headers['set-cookie'];
-        if (cookies != null) {
-          // print('Cookies: $cookies');
-          for (final cookie in cookies) {
-            final userId = _extractUserIdFromCookies(cookie);
-            if (userId != null) {
-              responseBody['user_id'] = userId;
-              responseBody['cookie'] = cookies;
-            }
-          }
+        final Map<String, dynamic> headers = response.headers.map;
+        if (headers['set-cookie'] != null &&
+            headers['set-cookie']![3] != null) {
+          responseBody['user_id'] =
+              headers['set-cookie']![3].split(';')[0].split('=')[1];
+          responseBody['cookie'] = headers['set-cookie']![0];
         }
 
         // Returning the parsed response
@@ -160,7 +156,9 @@ class FrappeV15 implements FrappeApi {
             'Cookie': _cookie ?? '',
           },
         ),
-        data: deskPageRequest.toJson(),
+        data: {
+          'page': deskPageRequest.toJson(),
+        },
       );
 
       if (response.statusCode == 200) {
@@ -378,9 +376,44 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<Map<String, dynamic>> saveDocs() {
-    // TODO: implement saveDocs
-    throw UnimplementedError();
+  Future<SavedocsReponse<T>> savedocs<T>({
+    required T document,
+    required String action,
+    required String Function() toJson,
+    required T Function(Map<String, dynamic>) fromMap,
+  }) async {
+    final url = '$_baseUrl/api/method/frappe.desk.form.save.savedocs';
+
+    try {
+      final response = await dio.post<SavedocsReponse<T>>(
+        url,
+        data: {
+          'doc': toJson(),
+          'action': action,
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return SavedocsReponse.fromJson<T>(
+          response.data.toString(),
+          fromMap,
+        );
+      } else {
+        throw Exception(
+          'Failed to save doc. Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An unknown error occurred while saving doc: $e');
+    }
   }
 
   @override

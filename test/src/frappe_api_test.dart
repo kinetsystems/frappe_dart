@@ -5,6 +5,7 @@ import 'package:frappe_dart/src/models/desktop_page_response/message.dart';
 import 'package:frappe_dart/src/models/desktop_page_response/shortcut_item.dart';
 import 'package:frappe_dart/src/models/desktop_page_response/shortcuts.dart';
 import 'package:frappe_dart/src/models/get_doc_response/doc.dart';
+import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -213,34 +214,65 @@ void main() {
     // Assertions
     expect(response.message, responseData.message);
   });
-test('Get doctype should return GetDoctypeResponse when successful', () async {
-  final doctypeResponse = GetDoctypeResponse(
-    docs: [
+  test('Get doctype should return GetDoctypeResponse when successful',
+      () async {
+    final doctypeResponse = GetDoctypeResponse(
+      docs: [],
+      userSettings: 'user_settings',
+    ); // Mock response
 
-      ],userSettings: 'user_settings',
-  ); // Mock response
+    // Stub Dio call
+    when(
+      mockDio.post<Map<String, dynamic>>(
+        any,
+        data: anyNamed('data'),
+        options: anyNamed('options'),
+      ),
+    ).thenAnswer(
+      (_) async => Response(
+        data: doctypeResponse.toMap(),
+        statusCode: 200,
+        requestOptions: RequestOptions(),
+      ),
+    );
 
-  // Stub Dio call
-  when(
-    mockDio.post<Map<String, dynamic>>(
-      any,
-      data: anyNamed('data'),
-      options: anyNamed('options'),
-    ),
-  ).thenAnswer(
-    (_) async => Response(
-      data: doctypeResponse.toMap(),
-      statusCode: 200,
-      requestOptions: RequestOptions(),
-    ),
-  );
+    // Call API method
+    final response = await frappeApi.getDoctype('doctype');
 
-  // Call API method
-  final response = await frappeApi.getDoctype('doctype');
+    // Assertions
+    expect(response, isA<GetDoctypeResponse>()); // Check type
+    expect(response.toMap(), doctypeResponse.toMap()); // Compare data
+  });
 
-  // Assertions
-  expect(response, isA<GetDoctypeResponse>()); // Check type
-  expect(response.toMap(), doctypeResponse.toMap()); // Compare data
-});
+  test('Savedocs should return SavedocsResponse when successful', () async {
+    final responseBody = SavedocsReponse(docs: ['doc1', 'doc2']);
+    final requestBody = SavedocsRequest(
+      doc: {'doc': 'sampleDoc'}, // Replace `anyNamed('doc')` with a valid value
+      action: Action.Save,
+    );
 
+    when(
+      mockDio.post<Map<String, dynamic>>(
+        any,
+        data: anyNamed('data'),
+        options: anyNamed('options'),
+      ),
+    ).thenAnswer(
+      (_) async => Response<Map<String, dynamic>>(
+        requestOptions: RequestOptions(path: 's'), 
+        statusCode: 200,
+        data: responseBody.toMap(),
+      ),
+    );
+
+    final response = await frappeApi.savedocs(
+      document: ['doc1', 'doc2'],
+      action: 'save',
+      toJson: () => 'doc',
+      fromMap: (Map<String, dynamic> map) =>
+          SavedocsReponse.fromMap(map, (Map<String, dynamic> map) => map),
+    );
+
+    expect(response.docs!.length, responseBody.docs!.length);
+  });
 }
