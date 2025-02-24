@@ -4,10 +4,6 @@ A comprehensive Dart wrapper for interacting with the Frappe API, providing easy
 
 🚧 **Note:** This project is currently under construction and is not production-ready. Expect significant changes as the project evolves.
 
-## What's New
-
-- **Web Support**: Now fully supports web applications, allowing integration with Frappe from browsers.
-
 ## Installation
 
 To get started with the `frappe_dart` package, add it to your project's `pubspec.yaml` dependencies:
@@ -65,19 +61,17 @@ You can extend the functionality of frappe_dart to support additional custom API
 import 'package:http/http.dart' as http;
 
 extension FrappeV15Extensions on FrappeV15 {
-  Future<http.Response> newApiEndPoint() async {
-    final url = Uri.parse(
-      '$baseUrl/api/method/new_api_endpoint',
-    );
+  Future<Map<String, dynamic>> newApiEndPoint() async {
+    final url = '$baseUrl/api/method/new_api_endpoint';
 
-    final response = await http.get(
+    final response = await dio.get<Map<String, dynamic>>(
       url,
       headers: {
-        if (cookie != null) 'Cookie': cookie!,
+        if (cookie != null) 'Cookie': cookie,
       },
     );
 
-    return response;
+    return response.data!;
   }
 }
 ```
