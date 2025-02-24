@@ -385,7 +385,7 @@ class FrappeV15 implements FrappeApi {
     final url = '$_baseUrl/api/method/frappe.desk.form.save.savedocs';
 
     try {
-      final response = await dio.post<SavedocsReponse<T>>(
+      final response = await dio.post<Map<String, dynamic>>(
         url,
         data: {
           'doc': toJson(),
@@ -400,8 +400,8 @@ class FrappeV15 implements FrappeApi {
       );
 
       if (response.statusCode == 200) {
-        return SavedocsReponse.fromJson<T>(
-          response.data.toString(),
+        return SavedocsReponse.fromMap<T>(
+          response.data!,
           fromMap,
         );
       } else {
