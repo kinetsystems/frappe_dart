@@ -427,7 +427,6 @@ class FrappeV15 implements FrappeApi {
         url,
         options: Options(
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
             'Cookie': _cookie ?? '',
           },
         ),
