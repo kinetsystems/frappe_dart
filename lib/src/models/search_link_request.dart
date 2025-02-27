@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class SearchLinkRequest {
-
   SearchLinkRequest({
     this.txt,
     required this.doctype,
     this.referenceDoctype,
     this.pageLength,
     this.query,
+    this.filters,
   });
 
   factory SearchLinkRequest.fromMap(Map<String, dynamic> data) {
@@ -17,6 +17,7 @@ class SearchLinkRequest {
       referenceDoctype: data['reference_doctype'] as String?,
       pageLength: data['page_length'] as int?,
       query: data['query'] as String?,
+      filters: data['filters'] as Map<String, dynamic>?,
     );
   }
 
@@ -31,6 +32,7 @@ class SearchLinkRequest {
   String? referenceDoctype;
   int? pageLength;
   String? query;
+  Map<String, dynamic>? filters;
 
   Map<String, dynamic> toMap() => {
         'txt': txt ?? '',
@@ -38,6 +40,7 @@ class SearchLinkRequest {
         if (referenceDoctype != null) 'reference_doctype': referenceDoctype,
         if (pageLength != null) 'page_length': pageLength.toString(),
         if (query != null) 'query': query,
+        if (filters != null) 'filters': filters,
       };
 
   /// `dart:convert`
