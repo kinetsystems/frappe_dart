@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
-import 'package:frappe_dart/src/dio_error/handle_dio_err.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 
@@ -202,6 +201,48 @@ class FrappeV15 implements FrappeApi {
 
       if (response.statusCode == 200) {
         return NumberCardResponse.fromMap(response.data!);
+      } else {
+        throw Exception(
+          '''Failed to get desk number card. Response Status: ${response.statusCode}''',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while retrieving number card: $e''',
+      );
+    }
+  }
+
+  @override
+  Future<NumberCardPercentageDifferenceResponse>
+      getNumberCardPercentageDifference(
+    String name,
+    String result,
+  ) async {
+    final url =
+        '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_percentage_difference';
+    try {
+      final numberCardDoc = await getdoc('Number Card', name);
+
+      final response = await _dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: {
+          'doc': numberCardDoc.docs?[0].toJson(),
+          'filters': numberCardDoc.docs?[0].dynamicFiltersJson ?? '',
+          'result': result,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return NumberCardPercentageDifferenceResponse.fromMap(response.data!);
       } else {
         throw Exception(
           '''Failed to get desk number card. Response Status: ${response.statusCode}''',

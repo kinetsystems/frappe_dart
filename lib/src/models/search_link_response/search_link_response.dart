@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:frappe_dart/src/models/search_link_response/message.dart';
 
 class SearchLinkResponse {
-
   SearchLinkResponse({this.message});
 
   factory SearchLinkResponse.fromMap(Map<String, dynamic> data) {
@@ -19,7 +18,7 @@ class SearchLinkResponse {
   /// Parses the string and returns the resulting Json object as [SearchLinkResponse].
   factory SearchLinkResponse.fromJson(String data) {
     return SearchLinkResponse.fromMap(
-        json.decode(data) as Map<String, dynamic>);
+        json.decode(data) as Map<String, dynamic>,);
   }
   List<Message>? message;
 

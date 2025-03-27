@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class DeleteDocRequest {
-
   DeleteDocRequest({
     required this.doctype,
     required this.name,

@@ -16,11 +16,11 @@ import 'package:dio/dio.dart';
 /// ```
 ///
 /// ### Exception Types Handled:
-/// - **Connection Timeout** → Request timed out  
-/// - **Receive Timeout** → Server took too long to respond  
-/// - **Bad Response** → Server returned an error  
-/// - **Connection Error** → No internet connection  
-/// - **Default Case** → Unexpected error  
+/// - **Connection Timeout** → Request timed out
+/// - **Receive Timeout** → Server took too long to respond
+/// - **Bad Response** → Server returned an error
+/// - **Connection Error** → No internet connection
+/// - **Default Case** → Unexpected error
 ///
 ///
 /// ### Parameters:
@@ -44,12 +44,11 @@ String handleDioError(DioException e) {
     case DioExceptionType.cancel:
       return 'Request was cancelled. Please try again.';
 
-    case DioExceptionType.unknown: 
+    case DioExceptionType.unknown:
       return 'An unexpected error occurred: ${e.message}';
 
     // ignore: no_default_cases
     default:
       return 'Something went wrong. Please try again.';
-
   }
 }

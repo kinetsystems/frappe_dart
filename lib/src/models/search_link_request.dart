@@ -2,8 +2,7 @@ import 'dart:convert';
 
 class SearchLinkRequest {
   SearchLinkRequest({
-    this.txt,
-    required this.doctype,
+    required this.doctype, this.txt,
     this.referenceDoctype,
     this.pageLength,
     this.query,

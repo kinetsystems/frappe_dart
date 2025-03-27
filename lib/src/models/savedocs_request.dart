@@ -3,7 +3,6 @@ import 'dart:convert';
 enum Action { Save, Submit, Update, Cancel }
 
 class SavedocsRequest {
-
   SavedocsRequest({
     required this.doc,
     required this.action,
