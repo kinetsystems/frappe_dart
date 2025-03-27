@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class ValidateLinkRequest {
-
   ValidateLinkRequest({
     required this.doctype,
     required this.docname,
@@ -19,7 +18,7 @@ class ValidateLinkRequest {
   /// Parses the string and returns the resulting Json object as [ValidateLinkRequest].
   factory ValidateLinkRequest.fromJson(String data) {
     return ValidateLinkRequest.fromMap(
-        json.decode(data) as Map<String, dynamic>);
+        json.decode(data) as Map<String, dynamic>,);
   }
   String doctype;
   String docname;

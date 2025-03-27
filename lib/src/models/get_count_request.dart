@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class GetCountRequest {
-
   GetCountRequest({this.doctype});
 
   factory GetCountRequest.fromMap(Map<String, dynamic> data) {

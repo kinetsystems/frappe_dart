@@ -59,8 +59,8 @@ class SavedocsReponse<T> {
 /// Concrete implementation of `SavedocsReponse`
 class _SavedocsReponseImpl<T> extends SavedocsReponse<T> {
   const _SavedocsReponseImpl({
-    List<T>? docs,
-    Docinfo? docinfo,
-    List<ServerMessage>? serverMessages,
-  }) : super(docs: docs, docinfo: docinfo, serverMessages: serverMessages);
+    super.docs,
+    super.docinfo,
+    super.serverMessages,
+  });
 }

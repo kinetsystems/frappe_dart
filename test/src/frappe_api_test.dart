@@ -245,7 +245,7 @@ void main() {
   });
 
   test('Savedocs should return SavedocsResponse when successful', () async {
-    final responseBody = SavedocsReponse(docs: ['doc1', 'doc2']);
+    const responseBody = SavedocsReponse(docs: ['doc1', 'doc2']);
     final requestBody = SavedocsRequest(
       doc: {'doc': 'sampleDoc'}, // Replace `anyNamed('doc')` with a valid value
       action: Action.Save,

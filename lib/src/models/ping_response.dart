@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class PingResponse {
-
   PingResponse({this.message});
 
   factory PingResponse.fromMap(Map<String, dynamic> data) => PingResponse(

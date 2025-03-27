@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class Message {
-
   Message({this.name});
 
   factory Message.fromMap(Map<String, dynamic> data) => Message(

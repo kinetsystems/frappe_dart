@@ -15,6 +15,7 @@ export 'logged_user_response.dart';
 export 'login_request.dart';
 export 'login_response.dart';
 export 'logout_response.dart';
+export 'number_card_percentage_difference_response.dart';
 export 'number_card_response.dart';
 export 'ping_response.dart';
 export 'savedocs_request.dart';

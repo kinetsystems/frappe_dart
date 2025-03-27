@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class GetRequest {
-
   GetRequest({
     required this.doctype,
     this.name,

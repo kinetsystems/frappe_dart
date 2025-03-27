@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class Permissions  {
+class Permissions {
   const Permissions({
     this.hasIfOwnerEnabled,
     this.select,

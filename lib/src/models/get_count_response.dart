@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 class GetCountResponse {
-
   GetCountResponse({this.message});
 
   factory GetCountResponse.fromMap(Map<String, dynamic> data) {
