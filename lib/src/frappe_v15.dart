@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
@@ -51,7 +52,7 @@ class FrappeV15 implements FrappeApi {
       );
 
       // Checking the response status
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         final responseBody = response.data!;
 
         final Map<String, dynamic> headers = response.headers.map;
@@ -85,7 +86,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return LogoutResponse.fromMap(response.data!);
       } else {
         throw Exception('Failed to logout. Status: ${response.statusCode}');
@@ -125,7 +126,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return DeskSidebarItemsResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -160,7 +161,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return DesktopPageResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -199,7 +200,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return NumberCardResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -241,7 +242,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return NumberCardPercentageDifferenceResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -277,7 +278,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return GetDoctypeResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -334,7 +335,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data ?? {};
       } else {
         throw Exception(
@@ -368,7 +369,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return GetDocResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -400,7 +401,7 @@ class FrappeV15 implements FrappeApi {
         data: getCountRequest.toMap(),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return GetCountResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -440,7 +441,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return SavedocsReponse.fromMap<T>(
           response.data!,
           fromMap,
@@ -474,7 +475,7 @@ class FrappeV15 implements FrappeApi {
         data: searchLinkRequest.toMap(),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return SearchLinkResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -508,7 +509,7 @@ class FrappeV15 implements FrappeApi {
         data: validateLinkRequest.toMap(),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return ValidateLinkResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -539,7 +540,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return SystemSettingsResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -569,7 +570,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return GetVersionsResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -599,7 +600,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return LoggedUserResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -628,7 +629,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return AppsResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -657,7 +658,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return UserInfoResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -681,7 +682,7 @@ class FrappeV15 implements FrappeApi {
         url,
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return PingResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -716,7 +717,7 @@ class FrappeV15 implements FrappeApi {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data ?? {};
       } else {
         throw Exception(
@@ -749,7 +750,7 @@ class FrappeV15 implements FrappeApi {
         data: deleteDocRequest.toMap(),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data ?? {};
       } else {
         throw Exception(
@@ -783,7 +784,7 @@ class FrappeV15 implements FrappeApi {
         ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data ?? {};
       } else {
         throw Exception(
@@ -815,7 +816,7 @@ class FrappeV15 implements FrappeApi {
         data: getRequest.toMap(),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data ?? {};
       } else {
         throw Exception(
@@ -827,6 +828,42 @@ class FrappeV15 implements FrappeApi {
     } catch (e) {
       throw Exception(
         '''An unknown error occurred while getting value: $e''',
+      );
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> call({
+    required String method,
+    required String type,
+    Map<String, dynamic>? args,
+    String? url,
+  }) async {
+    final apiUrl = url ?? '$_baseUrl/api/method/$method';
+    try {
+      final response = await _dio.request<Map<String, dynamic>>(
+        apiUrl,
+        options: Options(
+          method: type,
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: args,
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data ?? {};
+      } else {
+        throw Exception(
+          'Failed to call. Response Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while calling: $e''',
       );
     }
   }

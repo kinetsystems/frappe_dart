@@ -149,4 +149,11 @@ abstract class FrappeApi {
   ///
   /// Takes a [GetRequest] object as input and returns a [Map].
   Future<Map<String, dynamic>> get(GetRequest getRequest);
+
+  Future<Map<String, dynamic>> call({
+    required String method,
+    required String type,
+    Map<String, dynamic>? args,
+    String? url,
+  });
 }
