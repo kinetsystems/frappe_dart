@@ -698,6 +698,41 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
+  Future<Map<String, dynamic>> save(
+    Map<String, dynamic> doc,
+  ) async {
+    final url = '$_baseUrl/api/method/frappe.client.save';
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': _cookie ?? '',
+          },
+        ),
+        data: {
+          'doc': json.encode(doc),
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return response.data ?? {};
+      } else {
+        throw Exception(
+          'Failed to save doc. Response Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while saving doc: $e''',
+      );
+    }
+  }
+
+  @override
   Future<Map<String, dynamic>> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   ) async {

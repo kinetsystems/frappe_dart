@@ -37,7 +37,7 @@ abstract class FrappeApi {
 
   /// Retrieves a number card percentage difference by its name.
   ///
-  /// Takes the [name] of the number card and 
+  /// Takes the [name] of the number card and
   /// returns a [NumberCardPercentageDifferenceResponse].
   Future<NumberCardPercentageDifferenceResponse>
       getNumberCardPercentageDifference(
@@ -92,7 +92,7 @@ abstract class FrappeApi {
 
   /// Retrieves a list of items based on the specified parameters.
   ///
-  /// Takes [fields], [limit], [orderBy], and [doctype] as parameters
+  /// Takes [fields], [limitStart], [orderBy], and [doctype] as parameters
   /// and returns a [Map].
   Future<Map<String, dynamic>> getList({
     required String doctype,
@@ -118,12 +118,28 @@ abstract class FrappeApi {
   /// Returns an [UserInfoResponse] containing the user info.
   Future<UserInfoResponse> getUserInfo();
 
+  /// Pings the server.
+  ///
+  /// Returns a [PingResponse] containing the ping response.
   Future<PingResponse> ping();
 
+  /// Saves a document.
+  ///
+  /// Takes a [Map] of [String, dynamic] as input and returns a [Map].
+  Future<Map<String, dynamic>> save(
+    Map<String, dynamic> doc,
+  );
+
+  /// Deletes a document.
+  ///
+  /// Takes a [DeleteDocRequest] as input and returns a [Map].
   Future<Map<String, dynamic>> deleteDoc(
     DeleteDocRequest deleteDocRequest,
   );
 
+  /// Retrieves a value from the server.
+  ///
+  /// Takes a [GetRequest] as input and returns a [Map].
   Future<Map<String, dynamic>> getValue({
     required String doctype,
     required String fieldname,
