@@ -871,7 +871,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-
+ 
   @override
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
@@ -1015,6 +1015,39 @@ class FrappeV15 implements FrappeApi {
       throw Exception(
         'An error occurred while fetching the list: $e',
       );
+    }
+  }
+  
+  @override
+  Future<Map<String, dynamic>> mapDocs({
+    required List<String> sourceName,
+    required Map<String, dynamic> targetDoc,
+    required String method,
+  }) async {
+    try {
+      final payload = 'method=$method'
+          '&source_names=${Uri.encodeComponent(jsonEncode(sourceName))}'
+          '&target_doc=${Uri.encodeComponent(json.encode(targetDoc))}';
+
+      final response = await dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.model.mapper.map_docs',
+        data: payload,
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+          headers: {
+            'Cookie': cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        print('Server error: ${response.statusCode}');
+        throw Exception('Failed to fetch data: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('An error occurred: $e');
     }
   }
 }

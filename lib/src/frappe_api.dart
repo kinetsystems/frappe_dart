@@ -189,4 +189,10 @@ abstract class FrappeApi {
   Future<ReportViewResponse> GetReportView(
     ReportViewRequest reportViewRequest,
   );
+
+  Future<Map<String, dynamic>> mapDocs({
+    required List<String> sourceName,
+    required Map<String, dynamic> targetDoc,
+    required String method,
+  });
 }
