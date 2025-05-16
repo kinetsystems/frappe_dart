@@ -1,5 +1,8 @@
 import 'package:frappe_dart/frappe_dart.dart';
+import 'package:frappe_dart/src/models/report_view_request.dart';
+import 'package:frappe_dart/src/models/report_view_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
+import 'package:frappe_dart/src/models/send_email_response.dart';
 
 /// An abstract class that defines the Frappe API.
 abstract class FrappeApi {
@@ -156,6 +159,36 @@ abstract class FrappeApi {
     Map<String, dynamic>? args,
     String? url,
   });
+
+  /// Retrieves a dashboard chart.
+  ///
+  /// Takes a [Map] of [String, dynamic] as input and returns a [Map].
+  Future<Map<String, dynamic>> getDashboardChart(
+    Map<String, dynamic> payload,
+  );
+  
+  /// Executes a report run with the provided payload.
+  ///
+  /// Takes a [payload] containing report parameters and returns a [Map] with the report results.
+  Future<Map<String, dynamic>> getReportRun(
+    Map<String, dynamic> payload,
+  );
+  
+  Future<SendEmailResponse> sendEmail({
+    required String recipients,
+    required String subject,
+    required String content,
+    required String doctype,
+    required String name,
+    required String sendEmail,
+    required String printFormat,
+    required String senderFullName,
+    required String lang,
+  });
+  
+  Future<ReportViewResponse> GetReportView(
+    ReportViewRequest reportViewRequest,
+  );
 
   Future<Map<String, dynamic>> mapDocs({
     required List<String> sourceName,
