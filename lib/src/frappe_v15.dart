@@ -1134,4 +1134,40 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
+  
+  @override
+  Future<Map<String, dynamic>> runDocMethod({
+    required Map<String, dynamic> data,
+    required String method,
+  }) async {
+    final url = '$baseUrl/api/method/run_doc_method';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: {
+          'docs': json.encode(data),
+          'method': method,
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to run doc method. HTTP Status: ${response.statusCode}, data: ${response.data!}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while running doc method: $e');
+    }
+  }
 }

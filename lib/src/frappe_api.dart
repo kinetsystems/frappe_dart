@@ -210,4 +210,9 @@ abstract class FrappeApi {
     String start = '0',
     String pageLength = '10',
   });
+  
+  Future<Map<String, dynamic>> runDocMethod({
+    required Map<String, dynamic> data,
+    required String method,
+  });
 }
