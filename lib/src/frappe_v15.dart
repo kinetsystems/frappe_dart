@@ -871,7 +871,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
- 
+  
   @override
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
@@ -1084,6 +1084,54 @@ class FrappeV15 implements FrappeApi {
       throw Exception(handleDioError(e));
     } catch (e) {
       throw Exception('An error occurred while switching theme: $e');
+    }
+  }
+  
+  @override
+  Future<Map<String, dynamic>> searchWidget({
+    required String doctype,
+    required String txt,
+    required String query,
+
+    required Map<String, dynamic> filters,
+    List<String>? filterFields,
+    String? searchField,
+    String start = '0',
+    String pageLength = '10',
+  }) async {
+    try {
+      final response = await dio.get<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.desk.search.search_widget',
+        queryParameters: {
+          'doctype': doctype,
+          'txt': txt,
+          'filters': jsonEncode(filters),
+          if (filterFields != null) 'filter_fields': jsonEncode(filterFields),
+          'page_length': '25',
+          'as_dict': '1',
+          if (query.isNotEmpty) 'query': query,
+          if (searchField != null) 'search_field': searchField,
+          if (start != '0') 'start': start,
+          if (pageLength != '10') 'page_length': pageLength,
+        },
+        options: Options(
+          headers: {'Content-Type': 'application/json', 'Cookie': cookie ?? ''},
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          '''An unknown error occurred while calling''',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while calling: $e''',
+      );
     }
   }
 }

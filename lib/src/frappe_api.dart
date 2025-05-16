@@ -199,4 +199,15 @@ abstract class FrappeApi {
   Future<Map<String, dynamic>> switchTheme({
     required String theme,
   });
+  
+  Future<Map<String, dynamic>> searchWidget({
+    required String doctype,
+    required String txt,
+    required String query,
+    required Map<String, dynamic> filters,
+    List<String>? filterFields,
+    String? searchField,
+    String start = '0',
+    String pageLength = '10',
+  });
 }
