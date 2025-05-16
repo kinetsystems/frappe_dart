@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/error_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
+import 'package:frappe_dart/src/models/send_email_response.dart';
 
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
@@ -865,6 +867,56 @@ class FrappeV15 implements FrappeApi {
       throw Exception(
         '''An unknown error occurred while calling: $e''',
       );
+    }
+  }
+
+  Future<SendEmailResponse> sendEmail({
+    required String recipients,
+    required String subject,
+    required String content,
+    required String doctype,
+    required String name,
+    required String sendEmail,
+    required String printFormat,
+    required String senderFullName,
+    required String lang,
+  }) async {
+    final url =
+        '$baseUrl/api/method/frappe.core.doctype.communication.email.make';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: {
+          'recipients': recipients,
+          'subject': subject,
+          'content': content,
+          'doctype': doctype,
+          'name': name,
+          'send_email': sendEmail,
+          'print_format': printFormat,
+          'sender_full_name': senderFullName,
+          '_lang': lang,
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return SendEmailResponse.fromMap(response.data!);
+      } else {
+        final res = ErrorResponse.fromMap(response.data!);
+        throw Exception(
+            'Failed to send email. HTTP Status: ${response.statusCode},');
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e, stack) {
+      throw Exception('An error occurred while sending email: $e');
     }
   }
 }
