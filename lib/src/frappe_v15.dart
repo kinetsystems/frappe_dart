@@ -912,7 +912,8 @@ class FrappeV15 implements FrappeApi {
       } else {
         final res = ErrorResponse.fromMap(response.data!);
         throw Exception(
-            'Failed to send email. HTTP Status: ${response.statusCode},');
+          'Failed to send email. HTTP Status: ${response.statusCode}, data: ${res.exception}',
+        );
       }
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
