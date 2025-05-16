@@ -79,7 +79,7 @@ abstract class FrappeApi {
   /// Validate a link.
   ///
   /// Returns an [ValidateLinkResponse] containing the validate link results.
-  Future<ValidateLinkResponse> validateLink(
+  Future<Map<String, dynamic>> validateLink(
     ValidateLinkRequest validateLinkRequest,
   );
 
