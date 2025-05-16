@@ -984,7 +984,7 @@ class FrappeV15 implements FrappeApi {
     }
   }
   
-  Future<ReportViewResponse> GetReportView(
+  Future<ReportViewResponse> getReportView(
     ReportViewRequest reportViewRequest,
   ) async {
     final url = '$baseUrl/api/method/frappe.desk.reportview.get_list';
