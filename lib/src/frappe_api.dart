@@ -1,4 +1,6 @@
 import 'package:frappe_dart/frappe_dart.dart';
+import 'package:frappe_dart/src/models/report_view_request.dart';
+import 'package:frappe_dart/src/models/report_view_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 import 'package:frappe_dart/src/models/send_email_response.dart';
 
@@ -183,4 +185,8 @@ abstract class FrappeApi {
     required String senderFullName,
     required String lang,
   });
+  
+  Future<ReportViewResponse> GetReportView(
+    ReportViewRequest reportViewRequest,
+  );
 }
