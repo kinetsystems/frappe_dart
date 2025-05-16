@@ -29,7 +29,7 @@ class ValidateLinkRequest {
   Map<String, dynamic> toMap() => {
         'doctype': doctype,
         'docname': docname,
-        'fields': json.encode(fields),
+        if (fields != null) 'fields': json.encode(fields),
       };
 
   /// `dart:convert`
