@@ -917,7 +917,7 @@ class FrappeV15 implements FrappeApi {
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        // Decode the response body into a Map and explicitly cast it
+       
         return ReportViewResponse.fromJson(response.data!);
       } else {
         throw Exception(
