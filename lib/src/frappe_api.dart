@@ -1,4 +1,5 @@
 import 'package:frappe_dart/frappe_dart.dart';
+import 'package:frappe_dart/src/models/item_from_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 
 /// An abstract class that defines the Frappe API.
@@ -155,5 +156,14 @@ abstract class FrappeApi {
     required String type,
     Map<String, dynamic>? args,
     String? url,
+  });
+
+  Future<List<ItemFromResponse>> fetchItemFrom({
+    required String doctype,
+    required String txt,
+    required String company,
+    required String customerName,
+    required String query,
+    required String party,
   });
 }
