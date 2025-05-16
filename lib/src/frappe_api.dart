@@ -161,7 +161,6 @@ abstract class FrappeApi {
     required String doctype,
     required String txt,
     required String query,
-    required String party,
     required Map<String, dynamic> filters,
     List<String>? filterFields,
     String? searchField,
