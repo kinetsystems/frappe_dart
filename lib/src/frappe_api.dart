@@ -157,6 +157,9 @@ abstract class FrappeApi {
     String? url,
   });
 
+  /// Retrieves a dashboard chart.
+  ///
+  /// Takes a [Map] of [String, dynamic] as input and returns a [Map].
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
   );

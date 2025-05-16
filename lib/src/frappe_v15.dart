@@ -868,23 +868,33 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
   ) async {
     try {
-      final response = await dio.post<Map<String, dynamic>>(
+      final response = await _dio.post<Map<String, dynamic>>(
         '$baseUrl/api/method/frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
         data: payload,
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data!;
       } else {
-        throw Exception('Failed to get dashboard chart');
+        throw Exception(
+          'Failed to get dashboard chart. Response Status: ${response.statusCode}',
+        );
       }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
     } catch (e) {
       throw Exception(
-        '''An unknown error occurred while calling: $e''',
+        '''An unknown error occurred while retrieving dashboard chart: $e''',
       );
     }
   }
