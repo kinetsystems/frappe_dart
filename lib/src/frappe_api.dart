@@ -1,4 +1,6 @@
 import 'package:frappe_dart/frappe_dart.dart';
+import 'package:frappe_dart/src/models/report_view_request.dart';
+import 'package:frappe_dart/src/models/report_view_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 
 /// An abstract class that defines the Frappe API.
@@ -156,4 +158,8 @@ abstract class FrappeApi {
     Map<String, dynamic>? args,
     String? url,
   });
+
+  Future<ReportViewResponse> GetReportView(
+    ReportViewRequest reportViewRequest,
+  );
 }

@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/report_view_request.dart';
+import 'package:frappe_dart/src/models/report_view_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 
 /// A class that implements the Frappe API for version 15.
@@ -864,6 +866,40 @@ class FrappeV15 implements FrappeApi {
     } catch (e) {
       throw Exception(
         '''An unknown error occurred while calling: $e''',
+      );
+    }
+  }
+
+  Future<ReportViewResponse> GetReportView(
+    ReportViewRequest reportViewRequest,
+  ) async {
+    final url = '$baseUrl/api/method/frappe.desk.reportview.get_list';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: jsonEncode(reportViewRequest.toMap()),
+      );
+
+      if (response.statusCode == 200) {
+        // Decode the response body into a Map and explicitly cast it
+        return ReportViewResponse.fromJson(response.data!);
+      } else {
+        throw Exception(
+          'Failed to get list. HTTP Status: ${response.statusCode}, Response: ${response.data!}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e, stack) {
+      throw Exception(
+        'An error occurred while fetching the list: $e',
       );
     }
   }
