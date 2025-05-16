@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Check if package file has changed
+changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+
+check_run() {
+    echo "$changed_files" | grep --quiet "$1" && eval "$2"
+}
+
+# Install pub dependencies if pubspec.yaml changed
+check_run "pubspec.yaml" "echo 'pubspec.yaml changed. Running dart pub get...' && dart pub get"
+
+# Install new git hooks if hooks directory changed
+check_run "hooks/" "echo 'Hooks changed. Updating git hooks...' && git config core.hooksPath hooks"
