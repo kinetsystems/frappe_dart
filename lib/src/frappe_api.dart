@@ -195,4 +195,8 @@ abstract class FrappeApi {
     required Map<String, dynamic> targetDoc,
     required String method,
   });
+  
+  Future<Map<String, dynamic>> switchTheme({
+    required String theme,
+  });
 }
