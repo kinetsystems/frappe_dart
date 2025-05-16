@@ -867,4 +867,25 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
+
+  Future<Map<String, dynamic>> getDashboardChart(
+    Map<String, dynamic> payload,
+  ) async {
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
+        data: payload,
+      );
+
+      if (response.statusCode == 200) {
+        return response.data!;
+      } else {
+        throw Exception('Failed to get dashboard chart');
+      }
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while calling: $e''',
+      );
+    }
+  }
 }

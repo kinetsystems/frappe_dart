@@ -2,13 +2,13 @@ import 'package:frappe_dart/frappe_dart.dart';
 
 void main() async {
   final frappe = FrappeV15(
-    baseUrl: 'https://your-frappe-url.com',
+    baseUrl: 'https://accreditation.haronerp.com',
   );
 
   try {
     final authResponse = await frappe.login(
       LoginRequest(
-        usr: 'your-username',
+        usr: 'ahmed@haronerp.com',
         pwd: 'your-password',
       ),
     );
