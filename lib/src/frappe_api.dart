@@ -166,14 +166,14 @@ abstract class FrappeApi {
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
   );
-  
+
   /// Executes a report run with the provided payload.
   ///
   /// Takes a [payload] containing report parameters and returns a [Map] with the report results.
   Future<Map<String, dynamic>> getReportRun(
     Map<String, dynamic> payload,
   );
-  
+
   Future<SendEmailResponse> sendEmail({
     required String recipients,
     required String subject,
@@ -185,8 +185,8 @@ abstract class FrappeApi {
     required String senderFullName,
     required String lang,
   });
-  
-  Future<ReportViewResponse> GetReportView(
+
+  Future<ReportViewResponse> getReportView(
     ReportViewRequest reportViewRequest,
   );
 
@@ -195,11 +195,11 @@ abstract class FrappeApi {
     required Map<String, dynamic> targetDoc,
     required String method,
   });
-  
+
   Future<Map<String, dynamic>> switchTheme({
     required String theme,
   });
-  
+
   Future<Map<String, dynamic>> searchWidget({
     required String doctype,
     required String txt,
@@ -210,7 +210,7 @@ abstract class FrappeApi {
     String start = '0',
     String pageLength = '10',
   });
-  
+
   Future<Map<String, dynamic>> runDocMethod({
     required Map<String, dynamic> data,
     required String method,
