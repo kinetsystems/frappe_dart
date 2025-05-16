@@ -1,5 +1,6 @@
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
+import 'package:frappe_dart/src/models/send_email_response.dart';
 
 /// An abstract class that defines the Frappe API.
 abstract class FrappeApi {
@@ -170,4 +171,16 @@ abstract class FrappeApi {
   Future<Map<String, dynamic>> getReportRun(
     Map<String, dynamic> payload,
   );
+  
+  Future<SendEmailResponse> sendEmail({
+    required String recipients,
+    required String subject,
+    required String content,
+    required String doctype,
+    required String name,
+    required String sendEmail,
+    required String printFormat,
+    required String senderFullName,
+    required String lang,
+  });
 }
