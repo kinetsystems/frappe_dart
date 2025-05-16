@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-class ErrorResponse {
+class ErrorResponse extends Equatable {
   const ErrorResponse({
     this.exception,
     this.excType,

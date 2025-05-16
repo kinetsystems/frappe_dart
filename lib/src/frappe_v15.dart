@@ -870,6 +870,7 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
   Future<SendEmailResponse> sendEmail({
     required String recipients,
     required String subject,
