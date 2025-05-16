@@ -163,4 +163,11 @@ abstract class FrappeApi {
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
   );
+  
+  /// Executes a report run with the provided payload.
+  ///
+  /// Takes a [payload] containing report parameters and returns a [Map] with the report results.
+  Future<Map<String, dynamic>> getReportRun(
+    Map<String, dynamic> payload,
+  );
 }
