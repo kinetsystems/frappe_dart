@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get the commit message from the commit message file
+commit_msg=$(cat "$1" 2>/dev/null || cat .git/COMMIT_EDITMSG 2>/dev/null)
+
+pattern='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .+'
+
+if ! [[ "$commit_msg" =~ $pattern ]]; then
+    echo "Error: Commit message must follow semantic format:"
+    echo "type(scope): message"
+    echo "Examples:"
+    echo "  feat(auth): add login page"
+    echo "  fix(ui): correct button alignment"
+    exit 1
+fi
