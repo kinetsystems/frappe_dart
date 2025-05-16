@@ -158,6 +158,20 @@ abstract class FrappeApi {
     String? url,
   });
 
+  /// Retrieves a dashboard chart.
+  ///
+  /// Takes a [Map] of [String, dynamic] as input and returns a [Map].
+  Future<Map<String, dynamic>> getDashboardChart(
+    Map<String, dynamic> payload,
+  );
+  
+  /// Executes a report run with the provided payload.
+  ///
+  /// Takes a [payload] containing report parameters and returns a [Map] with the report results.
+  Future<Map<String, dynamic>> getReportRun(
+    Map<String, dynamic> payload,
+  );
+  
   Future<SendEmailResponse> sendEmail({
     required String recipients,
     required String subject,

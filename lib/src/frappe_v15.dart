@@ -871,6 +871,66 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
+  Future<Map<String, dynamic>> getDashboardChart(
+    Map<String, dynamic> payload,
+  ) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
+        data: payload,
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to get dashboard chart. Response Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while retrieving dashboard chart: $e''',
+      );
+    }
+  }
+  
+  @override
+  Future<Map<String, dynamic>> getReportRun(
+    Map<String, dynamic> payload,
+  ) async {
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.desk.query_report.run',
+        data: payload,
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception('Failed to get report run');
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while calling: $e''',
+      );
+    }
+  }
+  
+  @override
   Future<SendEmailResponse> sendEmail({
     required String recipients,
     required String subject,
