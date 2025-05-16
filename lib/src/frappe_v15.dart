@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/posInvoice/pos_invoice.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 
 /// A class that implements the Frappe API for version 15.
@@ -865,6 +866,40 @@ class FrappeV15 implements FrappeApi {
       throw Exception(
         '''An unknown error occurred while calling: $e''',
       );
+    }
+  }
+
+  @override
+  Future<PosInvoice> getSelectedItem({
+    required List<String> sourceName,
+    required PosInvoice posInvoice,
+    required String method,
+  }) async {
+    try {
+      final payload = 'method=$method'
+          '&source_names=${Uri.encodeComponent(jsonEncode(sourceName))}'
+          '&target_doc=${Uri.encodeComponent(posInvoice.toJson())}';
+
+      final response = await dio.post(
+        '$baseUrl/api/method/frappe.model.mapper.map_docs',
+        data: payload,
+        options: Options(
+          contentType: Headers.formUrlEncodedContentType,
+          headers: {
+            'Cookie': cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        final responseData = response.data['message'];
+        return PosInvoice.fromMap(responseData as Map<String, dynamic>);
+      } else {
+        print('Server error: ${response.statusCode}');
+        throw Exception('Failed to fetch data: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('An error occurred: $e');
     }
   }
 }
