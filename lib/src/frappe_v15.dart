@@ -6,7 +6,9 @@ import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
 import 'package:frappe_dart/src/models/report_view_request.dart';
 import 'package:frappe_dart/src/models/report_view_response.dart';
+import 'package:frappe_dart/src/models/error_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
+import 'package:frappe_dart/src/models/send_email_response.dart';
 
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
@@ -870,6 +872,118 @@ class FrappeV15 implements FrappeApi {
     }
   }
 
+  @override
+  Future<Map<String, dynamic>> getDashboardChart(
+    Map<String, dynamic> payload,
+  ) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
+        data: payload,
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to get dashboard chart. Response Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while retrieving dashboard chart: $e''',
+      );
+    }
+  }
+  
+  @override
+  Future<Map<String, dynamic>> getReportRun(
+    Map<String, dynamic> payload,
+  ) async {
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        '$baseUrl/api/method/frappe.desk.query_report.run',
+        data: payload,
+        options: Options(
+          headers: {
+            'Cookie': _cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception('Failed to get report run');
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception(
+        '''An unknown error occurred while calling: $e''',
+      );
+    }
+  }
+  
+  @override
+  Future<SendEmailResponse> sendEmail({
+    required String recipients,
+    required String subject,
+    required String content,
+    required String doctype,
+    required String name,
+    required String sendEmail,
+    required String printFormat,
+    required String senderFullName,
+    required String lang,
+  }) async {
+    final url =
+        '$baseUrl/api/method/frappe.core.doctype.communication.email.make';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: {
+          'recipients': recipients,
+          'subject': subject,
+          'content': content,
+          'doctype': doctype,
+          'name': name,
+          'send_email': sendEmail,
+          'print_format': printFormat,
+          'sender_full_name': senderFullName,
+          '_lang': lang,
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return SendEmailResponse.fromMap(response.data!);
+      } else {
+        final res = ErrorResponse.fromMap(response.data!);
+        throw Exception(
+          'Failed to send email. HTTP Status: ${response.statusCode}, data: ${res.exception}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e, stack) {
+      throw Exception('An error occurred while sending email: $e');
+    }
+  }
+  
   Future<ReportViewResponse> GetReportView(
     ReportViewRequest reportViewRequest,
   ) async {

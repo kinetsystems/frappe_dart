@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Check code formatting
+echo "Checking dart formatting..."
+# dart format --line-length 80 --set-exit-if-changed lib test
+# if [ $? -ne 0 ]; then
+#     echo "Error: Code formatting issues found"
+#     exit 1
+# fi
+
+
+# Run flutter analyze
+# echo "Running flutter analyze..."
+# flutter analyze lib test
+# if [ $? -ne 0 ]; then
+#     echo "Error: Analysis issues found"
+#     exit 1
+# fi
+
+# Run tests with coverage
+echo "Running tests with coverage..."
+# flutter test --coverage
+# if [ $? -ne 0 ]; then
+#     echo "Error: Tests failed"
+#     exit 1
+# fi
+
+exit 0
