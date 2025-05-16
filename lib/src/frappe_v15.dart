@@ -496,7 +496,7 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<ValidateLinkResponse> validateLink(
+  Future<Map<String, dynamic>> validateLink(
     ValidateLinkRequest validateLinkRequest,
   ) async {
     final url = '$_baseUrl/api/method/frappe.client.validate_link';
@@ -514,7 +514,7 @@ class FrappeV15 implements FrappeApi {
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        return ValidateLinkResponse.fromMap(response.data!);
+        return response.data!;
       } else {
         throw Exception(
           'Failed to search link. Response Status: ${response.statusCode}',
@@ -871,7 +871,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> getDashboardChart(
     Map<String, dynamic> payload,
@@ -902,7 +902,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> getReportRun(
     Map<String, dynamic> payload,
@@ -931,7 +931,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-  
+
   @override
   Future<SendEmailResponse> sendEmail({
     required String recipients,
@@ -983,7 +983,7 @@ class FrappeV15 implements FrappeApi {
       throw Exception('An error occurred while sending email: $e');
     }
   }
-  
+
   Future<ReportViewResponse> getReportView(
     ReportViewRequest reportViewRequest,
   ) async {
@@ -1017,7 +1017,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> mapDocs({
     required List<String> sourceName,
@@ -1050,7 +1050,7 @@ class FrappeV15 implements FrappeApi {
       throw Exception('An error occurred: $e');
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> switchTheme({
     required String theme,
@@ -1086,13 +1086,12 @@ class FrappeV15 implements FrappeApi {
       throw Exception('An error occurred while switching theme: $e');
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> searchWidget({
     required String doctype,
     required String txt,
     required String query,
-
     required Map<String, dynamic> filters,
     List<String>? filterFields,
     String? searchField,
@@ -1134,7 +1133,7 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>> runDocMethod({
     required Map<String, dynamic> data,
