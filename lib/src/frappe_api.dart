@@ -156,4 +156,9 @@ abstract class FrappeApi {
     Map<String, dynamic>? args,
     String? url,
   });
+
+  Future<Map<String, dynamic>> runDocMethod({
+    required Map<String, dynamic> data,
+    required String method,
+  });
 }
