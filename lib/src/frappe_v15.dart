@@ -870,46 +870,31 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<List<ItemFromResponse>> fetchItemFrom({
+  Future<Map<String, dynamic>> searchWidget({
     required String doctype,
     required String txt,
-    required String company,
-    required String customerName,
     required String query,
     required String party,
+    required Map<String, dynamic> filters,
+    List<String>? filterFields,
+    String? searchField,
+    String start = '0',
+    String pageLength = '10',
   }) async {
     try {
-      final payload = {
-        'filters': {
-          'docstatus': 1,
-          'status': [
-            'not in',
-            ['Closed', 'On Hold'],
-          ],
-          'company': company,
-          party: customerName,
-        },
-        'filter_fields': [party],
-        '_': DateTime.now().millisecondsSinceEpoch,
-      };
-
-      if (doctype == 'Sales Order') {
-        final filters = payload['filters']! as Map<String, dynamic>;
-        filters['per_billed'] = ['<', 99.99];
-        payload['filters'] = filters;
-      }
-
-      final response = await dio.get(
+      final response = await dio.get<Map<String, dynamic>>(
         '$baseUrl/api/method/frappe.desk.search.search_widget',
         queryParameters: {
           'doctype': doctype,
           'txt': txt,
-          'filters': jsonEncode(payload['filters']),
-          'filter_fields': jsonEncode(payload['filter_fields']),
+          'filters': jsonEncode(filters),
+          if (filterFields != null) 'filter_fields': jsonEncode(filterFields),
           'page_length': '25',
           'as_dict': '1',
           if (query.isNotEmpty) 'query': query,
-          '_': payload['_'].toString(),
+          if (searchField != null) 'search_field': searchField,
+          if (start != '0') 'start': start,
+          if (pageLength != '10') 'page_length': pageLength,
         },
         options: Options(
           headers: {'Content-Type': 'application/json', 'Cookie': cookie ?? ''},
@@ -917,19 +902,18 @@ class FrappeV15 implements FrappeApi {
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        final data = response.data['message'] as List;
-        return data
-            .map(
-              (item) => ItemFromResponse.fromJson(item as Map<String, dynamic>),
-            )
-            .toList();
+        return response.data!;
       } else {
-        print('Failed to fetch data: ${response.statusCode}');
-        return [];
+        throw Exception(
+          '''An unknown error occurred while calling''',
+        );
       }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
     } catch (e) {
-      print('Error fetching data: $e');
-      return [];
+      throw Exception(
+        '''An unknown error occurred while calling: $e''',
+      );
     }
   }
 }

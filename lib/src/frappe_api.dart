@@ -158,12 +158,15 @@ abstract class FrappeApi {
     String? url,
   });
 
-  Future<List<ItemFromResponse>> fetchItemFrom({
+  Future<Map<String, dynamic>> searchWidget({
     required String doctype,
     required String txt,
-    required String company,
-    required String customerName,
     required String query,
     required String party,
+    required Map<String, dynamic> filters,
+    List<String>? filterFields,
+    String? searchField,
+    String start = '0',
+    String pageLength = '10',
   });
 }
