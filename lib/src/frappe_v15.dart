@@ -867,4 +867,40 @@ class FrappeV15 implements FrappeApi {
       );
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> switchTheme({
+    required String theme,
+  }) async {
+    final url =
+        '$baseUrl/api/method/frappe.core.doctype.user.user.switch_theme';
+
+    try {
+      final payload = {
+        'theme': theme,
+      };
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: payload,
+      );
+
+      if (response.statusCode == 200) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to switch theme. HTTP Status: ${response.statusCode}, data: ${response.data!}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while switching theme: $e');
+    }
+  }
 }

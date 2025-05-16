@@ -156,4 +156,8 @@ abstract class FrappeApi {
     Map<String, dynamic>? args,
     String? url,
   });
+
+  Future<Map<String, dynamic>> switchTheme({
+    required String theme,
+  });
 }
