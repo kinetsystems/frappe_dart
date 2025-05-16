@@ -890,7 +890,7 @@ class FrappeV15 implements FrappeApi {
         data: payload,
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data!;
       } else {
         throw Exception(
