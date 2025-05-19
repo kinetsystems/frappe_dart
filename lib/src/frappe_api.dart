@@ -174,6 +174,9 @@ abstract class FrappeApi {
     Map<String, dynamic> payload,
   );
 
+  /// Sends an email with the provided parameters.
+  ///
+  /// Takes a [SendEmailRequest] object as input and returns a [SendEmailResponse].
   Future<SendEmailResponse> sendEmail({
     required String recipients,
     required String subject,
@@ -186,20 +189,32 @@ abstract class FrappeApi {
     required String lang,
   });
 
+  /// Retrieves a report view with the provided request.
+  ///
+  /// Takes a [ReportViewRequest] object as input and returns a [ReportViewResponse].
   Future<ReportViewResponse> getReportView(
     ReportViewRequest reportViewRequest,
   );
 
+  /// Maps documents with the provided parameters.
+  ///
+  /// Takes a [List<String>] of source names, a [Map<String, dynamic>] of target document, and a [String] of method as parameters and returns a [Map].
   Future<Map<String, dynamic>> mapDocs({
     required List<String> sourceName,
     required Map<String, dynamic> targetDoc,
     required String method,
   });
 
+  /// Switches the theme with the provided parameter.
+  ///
+  /// Takes a [String] of theme as parameter and returns a [Map].
   Future<Map<String, dynamic>> switchTheme({
     required String theme,
   });
 
+  /// Searches for a widget with the provided parameters.
+  ///
+  /// Takes a [String] of doctype, a [String] of txt, a [String] of query, a [Map<String, dynamic>] of filters, a [List<String>] of filter fields, a [String] of search field, a [String] of start, and a [String] of page length as parameters and returns a [Map].
   Future<Map<String, dynamic>> searchWidget({
     required String doctype,
     required String txt,
@@ -211,6 +226,9 @@ abstract class FrappeApi {
     String pageLength = '10',
   });
 
+  /// Runs a document method with the provided parameters.
+  ///
+  /// Takes a [Map<String, dynamic>] of data and a [String] of method as parameters and returns a [Map].
   Future<Map<String, dynamic>> runDocMethod({
     required Map<String, dynamic> data,
     required String method,

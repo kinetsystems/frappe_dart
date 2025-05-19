@@ -10,7 +10,7 @@ To get started with the `frappe_dart` package, add it to your project's `pubspec
 
 ```yaml
 dependencies:
-  frappe_dart: ^0.0.5
+  frappe_dart: ^0.0.6
 ```
 
 ## Usage
