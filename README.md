@@ -4,6 +4,13 @@ A comprehensive Dart wrapper for interacting with the Frappe API, providing easy
 
 🚧 **Note:** This project is currently under construction and is not production-ready. Expect significant changes as the project evolves.
 
+## Example App
+
+Looking for a working example? Check out the official example app here:  
+👉 [https://github.com/kinetsystems/frappify](https://github.com/kinetsystems/frappify)
+
+This separate repository demonstrates how to integrate and use `frappe_dart` in a real-world Flutter application.
+
 ## Installation
 
 To get started with the `frappe_dart` package, add it to your project's `pubspec.yaml` dependencies:
