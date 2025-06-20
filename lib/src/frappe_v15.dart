@@ -4,22 +4,19 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:frappe_dart/frappe_dart.dart';
 import 'package:frappe_dart/src/frappe_api.dart';
+import 'package:frappe_dart/src/models/error_response.dart';
 import 'package:frappe_dart/src/models/report_view_request.dart';
 import 'package:frappe_dart/src/models/report_view_response.dart';
-import 'package:frappe_dart/src/models/error_response.dart';
 import 'package:frappe_dart/src/models/savedocs_response/savedocs_response.dart';
 import 'package:frappe_dart/src/models/send_email_response.dart';
 
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
   /// Creates a new instance of [FrappeV15].
-  FrappeV15({
-    required String baseUrl,
-    Dio? dio,
-    String? cookie,
-  })  : _baseUrl = baseUrl,
-        _cookie = cookie,
-        _dio = dio ?? Dio();
+  FrappeV15({required String baseUrl, Dio? dio, String? cookie})
+    : _baseUrl = baseUrl,
+      _cookie = cookie,
+      _dio = dio ?? Dio();
 
   String _baseUrl;
   String? _cookie;
@@ -62,8 +59,9 @@ class FrappeV15 implements FrappeApi {
         final Map<String, dynamic> headers = response.headers.map;
         if (headers['set-cookie'] != null &&
             headers['set-cookie']![3] != null) {
-          responseBody['user_id'] =
-              headers['set-cookie']![3].split(';')[0].split('=')[1];
+          responseBody['user_id'] = headers['set-cookie']![3]
+              .split(';')[0]
+              .split('=')[1];
           responseBody['cookie'] = headers['set-cookie']![0];
         }
 
@@ -160,12 +158,11 @@ class FrappeV15 implements FrappeApi {
             'Cookie': _cookie ?? '',
           },
         ),
-        data: {
-          'page': deskPageRequest.toJson(),
-        },
+        data: {'page': deskPageRequest.toJson()},
       );
 
       if (response.statusCode == HttpStatus.ok) {
+        print(json.encode(response.data));
         return DesktopPageResponse.fromMap(response.data!);
       } else {
         throw Exception(
@@ -182,9 +179,7 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<NumberCardResponse> getNumberCard(
-    String name,
-  ) async {
+  Future<NumberCardResponse> getNumberCard(String name) async {
     final url =
         '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result';
     try {
@@ -222,10 +217,7 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<NumberCardPercentageDifferenceResponse>
-      getNumberCardPercentageDifference(
-    String name,
-    String result,
-  ) async {
+  getNumberCardPercentageDifference(String name, String result) async {
     final url =
         '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_percentage_difference';
     try {
@@ -263,9 +255,7 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<GetDoctypeResponse> getDoctype(
-    String doctype,
-  ) async {
+  Future<GetDoctypeResponse> getDoctype(String doctype) async {
     final url =
         '$_baseUrl/api/method/frappe.desk.form.load.getdoctype?doctype=$doctype&with_parent=1';
     try {
@@ -277,9 +267,7 @@ class FrappeV15 implements FrappeApi {
             'Cookie': _cookie ?? '',
           },
         ),
-        data: {
-          'doctype': doctype,
-        },
+        data: {'doctype': doctype},
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -292,9 +280,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while retrieving doc: $e''',
-      );
+      throw Exception('''An unknown error occurred while retrieving doc: $e''');
     }
   }
 
@@ -349,9 +335,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while retrieving doc: $e''',
-      );
+      throw Exception('''An unknown error occurred while retrieving doc: $e''');
     }
   }
 
@@ -367,10 +351,7 @@ class FrappeV15 implements FrappeApi {
             'Cookie': _cookie ?? '',
           },
         ),
-        data: {
-          'doctype': doctype,
-          'name': name,
-        },
+        data: {'doctype': doctype, 'name': name},
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -383,9 +364,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while retrieving doc: $e''',
-      );
+      throw Exception('''An unknown error occurred while retrieving doc: $e''');
     }
   }
 
@@ -415,9 +394,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while retrieving doc: $e''',
-      );
+      throw Exception('''An unknown error occurred while retrieving doc: $e''');
     }
   }
 
@@ -433,10 +410,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await dio.post<Map<String, dynamic>>(
         url,
-        data: {
-          'doc': toJson(),
-          'action': action,
-        },
+        data: {'doc': toJson(), 'action': action},
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -446,14 +420,9 @@ class FrappeV15 implements FrappeApi {
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        return SavedocsReponse.fromMap<T>(
-          response.data!,
-          fromMap,
-        );
+        return SavedocsReponse.fromMap<T>(response.data!, fromMap);
       } else {
-        throw Exception(
-          'Failed to save doc. Status: ${response.statusCode}',
-        );
+        throw Exception('Failed to save doc. Status: ${response.statusCode}');
       }
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
@@ -471,11 +440,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
         data: searchLinkRequest.toMap(),
       );
 
@@ -489,9 +454,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while searching link: $e''',
-      );
+      throw Exception('''An unknown error occurred while searching link: $e''');
     }
   }
 
@@ -537,11 +500,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -567,11 +526,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -597,11 +552,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -626,11 +577,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -655,11 +602,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -682,9 +625,7 @@ class FrappeV15 implements FrappeApi {
   Future<PingResponse> ping() async {
     final url = '$_baseUrl/api/method/ping';
     try {
-      final response = await _dio.post<Map<String, dynamic>>(
-        url,
-      );
+      final response = await _dio.post<Map<String, dynamic>>(url);
 
       if (response.statusCode == HttpStatus.ok) {
         return PingResponse.fromMap(response.data!);
@@ -696,16 +637,12 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while pinging: $e''',
-      );
+      throw Exception('''An unknown error occurred while pinging: $e''');
     }
   }
 
   @override
-  Future<Map<String, dynamic>> save(
-    Map<String, dynamic> doc,
-  ) async {
+  Future<Map<String, dynamic>> save(Map<String, dynamic> doc) async {
     final url = '$_baseUrl/api/method/frappe.client.save';
     try {
       final response = await _dio.post<Map<String, dynamic>>(
@@ -716,9 +653,7 @@ class FrappeV15 implements FrappeApi {
             'Cookie': _cookie ?? '',
           },
         ),
-        data: {
-          'doc': json.encode(doc),
-        },
+        data: {'doc': json.encode(doc)},
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -731,9 +666,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while saving doc: $e''',
-      );
+      throw Exception('''An unknown error occurred while saving doc: $e''');
     }
   }
 
@@ -764,9 +697,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while deleting doc: $e''',
-      );
+      throw Exception('''An unknown error occurred while deleting doc: $e''');
     }
   }
 
@@ -781,11 +712,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         url,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -798,9 +725,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while getting value: $e''',
-      );
+      throw Exception('''An unknown error occurred while getting value: $e''');
     }
   }
 
@@ -830,9 +755,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while getting value: $e''',
-      );
+      throw Exception('''An unknown error occurred while getting value: $e''');
     }
   }
 
@@ -847,12 +770,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.request<Map<String, dynamic>>(
         apiUrl,
-        options: Options(
-          method: type,
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(method: type, headers: {'Cookie': _cookie ?? ''}),
         data: args,
       );
 
@@ -866,9 +784,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while calling: $e''',
-      );
+      throw Exception('''An unknown error occurred while calling: $e''');
     }
   }
 
@@ -880,11 +796,7 @@ class FrappeV15 implements FrappeApi {
       final response = await _dio.post<Map<String, dynamic>>(
         '$baseUrl/api/method/frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
         data: payload,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -911,11 +823,7 @@ class FrappeV15 implements FrappeApi {
       final response = await dio.post<Map<String, dynamic>>(
         '$baseUrl/api/method/frappe.desk.query_report.run',
         data: payload,
-        options: Options(
-          headers: {
-            'Cookie': _cookie ?? '',
-          },
-        ),
+        options: Options(headers: {'Cookie': _cookie ?? ''}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -926,9 +834,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while calling: $e''',
-      );
+      throw Exception('''An unknown error occurred while calling: $e''');
     }
   }
 
@@ -993,10 +899,7 @@ class FrappeV15 implements FrappeApi {
       final response = await dio.post<Map<String, dynamic>>(
         url,
         options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            'Cookie': cookie ?? '',
-          },
+          headers: {'Content-Type': 'application/json', 'Cookie': cookie ?? ''},
         ),
         data: jsonEncode(reportViewRequest.toMap()),
       );
@@ -1012,9 +915,7 @@ class FrappeV15 implements FrappeApi {
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e, stack) {
-      throw Exception(
-        'An error occurred while fetching the list: $e',
-      );
+      throw Exception('An error occurred while fetching the list: $e');
     }
   }
 
@@ -1025,7 +926,8 @@ class FrappeV15 implements FrappeApi {
     required String method,
   }) async {
     try {
-      final payload = 'method=$method'
+      final payload =
+          'method=$method'
           '&source_names=${Uri.encodeComponent(jsonEncode(sourceName))}'
           '&target_doc=${Uri.encodeComponent(json.encode(targetDoc))}';
 
@@ -1034,9 +936,7 @@ class FrappeV15 implements FrappeApi {
         data: payload,
         options: Options(
           contentType: Headers.formUrlEncodedContentType,
-          headers: {
-            'Cookie': cookie ?? '',
-          },
+          headers: {'Cookie': cookie ?? ''},
         ),
       );
 
@@ -1052,16 +952,12 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<Map<String, dynamic>> switchTheme({
-    required String theme,
-  }) async {
+  Future<Map<String, dynamic>> switchTheme({required String theme}) async {
     final url =
         '$baseUrl/api/method/frappe.core.doctype.user.user.switch_theme';
 
     try {
-      final payload = {
-        'theme': theme,
-      };
+      final payload = {'theme': theme};
       final response = await dio.post<Map<String, dynamic>>(
         url,
         options: Options(
@@ -1121,16 +1017,12 @@ class FrappeV15 implements FrappeApi {
       if (response.statusCode == HttpStatus.ok) {
         return response.data!;
       } else {
-        throw Exception(
-          '''An unknown error occurred while calling''',
-        );
+        throw Exception('''An unknown error occurred while calling''');
       }
     } on DioException catch (e) {
       throw Exception(handleDioError(e));
     } catch (e) {
-      throw Exception(
-        '''An unknown error occurred while calling: $e''',
-      );
+      throw Exception('''An unknown error occurred while calling: $e''');
     }
   }
 
@@ -1150,10 +1042,7 @@ class FrappeV15 implements FrappeApi {
             'Cookie': cookie ?? '',
           },
         ),
-        data: {
-          'docs': json.encode(data),
-          'method': method,
-        },
+        data: {'docs': json.encode(data), 'method': method},
       );
 
       if (response.statusCode == HttpStatus.ok) {
