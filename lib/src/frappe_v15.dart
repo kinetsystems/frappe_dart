@@ -85,7 +85,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -123,7 +123,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
       );
@@ -155,7 +155,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {'page': deskPageRequest.toJson()},
@@ -190,7 +190,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {
@@ -228,7 +228,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {
@@ -264,7 +264,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {'doctype': doctype},
@@ -306,7 +306,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {
@@ -348,7 +348,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {'doctype': doctype, 'name': name},
@@ -378,7 +378,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: getCountRequest.toMap(),
@@ -414,7 +414,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
       );
@@ -440,7 +440,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
         data: searchLinkRequest.toMap(),
       );
 
@@ -470,7 +470,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: validateLinkRequest.toMap(),
@@ -500,7 +500,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -526,7 +526,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -552,7 +552,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -577,7 +577,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -602,7 +602,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -650,7 +650,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {'doc': json.encode(doc)},
@@ -681,7 +681,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: deleteDocRequest.toMap(),
@@ -712,7 +712,7 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         url,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -738,7 +738,7 @@ class FrappeV15 implements FrappeApi {
         url,
         options: Options(
           headers: {
-            'Cookie': _cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
             'Content-Type': 'application/x-www-form-urlencoded',
           },
         ),
@@ -770,7 +770,10 @@ class FrappeV15 implements FrappeApi {
     try {
       final response = await _dio.request<Map<String, dynamic>>(
         apiUrl,
-        options: Options(method: type, headers: {'Cookie': _cookie ?? ''}),
+        options: Options(
+          method: type,
+          headers: {if (cookie != null) 'Cookie': cookie},
+        ),
         data: args,
       );
 
@@ -796,7 +799,7 @@ class FrappeV15 implements FrappeApi {
       final response = await _dio.post<Map<String, dynamic>>(
         '$baseUrl/api/method/frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
         data: payload,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -823,7 +826,7 @@ class FrappeV15 implements FrappeApi {
       final response = await dio.post<Map<String, dynamic>>(
         '$baseUrl/api/method/frappe.desk.query_report.run',
         data: payload,
-        options: Options(headers: {'Cookie': _cookie ?? ''}),
+        options: Options(headers: {if (cookie != null) 'Cookie': cookie}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -859,7 +862,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {
@@ -899,7 +902,10 @@ class FrappeV15 implements FrappeApi {
       final response = await dio.post<Map<String, dynamic>>(
         url,
         options: Options(
-          headers: {'Content-Type': 'application/json', 'Cookie': cookie ?? ''},
+          headers: {
+            'Content-Type': 'application/json',
+            if (cookie != null) 'Cookie': cookie,
+          },
         ),
         data: jsonEncode(reportViewRequest.toMap()),
       );
@@ -936,7 +942,7 @@ class FrappeV15 implements FrappeApi {
         data: payload,
         options: Options(
           contentType: Headers.formUrlEncodedContentType,
-          headers: {'Cookie': cookie ?? ''},
+          headers: {if (cookie != null) 'Cookie': cookie},
         ),
       );
 
@@ -963,7 +969,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: payload,
@@ -1010,7 +1016,10 @@ class FrappeV15 implements FrappeApi {
           if (pageLength != '10') 'page_length': pageLength,
         },
         options: Options(
-          headers: {'Content-Type': 'application/json', 'Cookie': cookie ?? ''},
+          headers: {
+            'Content-Type': 'application/json',
+            if (cookie != null) 'Cookie': cookie,
+          },
         ),
       );
 
@@ -1039,7 +1048,7 @@ class FrappeV15 implements FrappeApi {
         options: Options(
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie': cookie ?? '',
+            if (cookie != null) 'Cookie': cookie,
           },
         ),
         data: {'docs': json.encode(data), 'method': method},
