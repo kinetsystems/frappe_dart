@@ -36,17 +36,14 @@ abstract class FrappeApi {
   /// Retrieves a number card by its name.
   ///
   /// Takes the [name] of the number card and returns a [NumberCardResponse].
-  Future<NumberCardResponse> getNumberCard(String name);
+  Future<NumberCardResponse> getNumberCard(String doc, String filters);
 
   /// Retrieves a number card percentage difference by its name.
   ///
   /// Takes the [name] of the number card and
   /// returns a [NumberCardPercentageDifferenceResponse].
   Future<NumberCardPercentageDifferenceResponse>
-      getNumberCardPercentageDifference(
-    String name,
-    String result,
-  );
+  getNumberCardPercentageDifference(String doc, String filters, String result);
 
   /// Retrieves details of a specific doctype.
   ///
@@ -129,16 +126,12 @@ abstract class FrappeApi {
   /// Saves a document.
   ///
   /// Takes a [Map] of [String, dynamic] as input and returns a [Map].
-  Future<Map<String, dynamic>> save(
-    Map<String, dynamic> doc,
-  );
+  Future<Map<String, dynamic>> save(Map<String, dynamic> doc);
 
   /// Deletes a document.
   ///
   /// Takes a [DeleteDocRequest] as input and returns a [Map].
-  Future<Map<String, dynamic>> deleteDoc(
-    DeleteDocRequest deleteDocRequest,
-  );
+  Future<Map<String, dynamic>> deleteDoc(DeleteDocRequest deleteDocRequest);
 
   /// Retrieves a value from the server.
   ///
@@ -163,16 +156,12 @@ abstract class FrappeApi {
   /// Retrieves a dashboard chart.
   ///
   /// Takes a [Map] of [String, dynamic] as input and returns a [Map].
-  Future<Map<String, dynamic>> getDashboardChart(
-    Map<String, dynamic> payload,
-  );
+  Future<Map<String, dynamic>> getDashboardChart(Map<String, dynamic> payload);
 
   /// Executes a report run with the provided payload.
   ///
   /// Takes a [payload] containing report parameters and returns a [Map] with the report results.
-  Future<Map<String, dynamic>> getReportRun(
-    Map<String, dynamic> payload,
-  );
+  Future<Map<String, dynamic>> getReportRun(Map<String, dynamic> payload);
 
   /// Sends an email with the provided parameters.
   ///
@@ -192,9 +181,7 @@ abstract class FrappeApi {
   /// Retrieves a report view with the provided request.
   ///
   /// Takes a [ReportViewRequest] object as input and returns a [ReportViewResponse].
-  Future<ReportViewResponse> getReportView(
-    ReportViewRequest reportViewRequest,
-  );
+  Future<ReportViewResponse> getReportView(ReportViewRequest reportViewRequest);
 
   /// Maps documents with the provided parameters.
   ///
@@ -208,9 +195,7 @@ abstract class FrappeApi {
   /// Switches the theme with the provided parameter.
   ///
   /// Takes a [String] of theme as parameter and returns a [Map].
-  Future<Map<String, dynamic>> switchTheme({
-    required String theme,
-  });
+  Future<Map<String, dynamic>> switchTheme({required String theme});
 
   /// Searches for a widget with the provided parameters.
   ///

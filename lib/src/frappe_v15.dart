@@ -179,11 +179,10 @@ class FrappeV15 implements FrappeApi {
   }
 
   @override
-  Future<NumberCardResponse> getNumberCard(String name) async {
+  Future<NumberCardResponse> getNumberCard(String doc, String filters) async {
     final url =
         '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result';
     try {
-      final numberCardDoc = await getdoc('Number Card', name);
 
       final response = await _dio.post<Map<String, dynamic>>(
         url,
@@ -194,8 +193,8 @@ class FrappeV15 implements FrappeApi {
           },
         ),
         data: {
-          'doc': numberCardDoc.docs?[0].toJson(),
-          'filters': numberCardDoc.docs?[0].dynamicFiltersJson ?? '',
+          'doc': doc,
+          'filters': filters,
         },
       );
 
@@ -217,11 +216,10 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<NumberCardPercentageDifferenceResponse>
-  getNumberCardPercentageDifference(String name, String result) async {
+  getNumberCardPercentageDifference(String doc, String filters, String result) async {
     final url =
         '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_percentage_difference';
     try {
-      final numberCardDoc = await getdoc('Number Card', name);
 
       final response = await _dio.post<Map<String, dynamic>>(
         url,
@@ -232,8 +230,8 @@ class FrappeV15 implements FrappeApi {
           },
         ),
         data: {
-          'doc': numberCardDoc.docs?[0].toJson(),
-          'filters': numberCardDoc.docs?[0].dynamicFiltersJson ?? '',
+          'doc': doc,
+          'filters': filters,
           'result': result,
         },
       );
