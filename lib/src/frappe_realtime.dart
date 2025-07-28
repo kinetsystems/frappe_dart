@@ -386,5 +386,10 @@ class FrappeRealtimeClient {
     _eventControllers.clear();
     _openTasks.clear();
     _openDocs.clear();
+    
+    // Clear static instance if this is the singleton  
+    if (_instance == this) {
+      _instance = null;
+    }  
   }
 }
