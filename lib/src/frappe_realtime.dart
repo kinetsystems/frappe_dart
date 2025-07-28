@@ -85,6 +85,9 @@ class FrappeRealtimeClient {
     final host = _getHost();
 
     final sid = RegExp(r'sid=([^;]+)').firstMatch(_cookie)?.group(1);
+    if (sid == null) {
+      throw ArgumentError('Invalid cookie format: sid not found');
+    }
 
     // Configure Socket.IO options - matching the working example
     final options = io.OptionBuilder()
@@ -386,10 +389,10 @@ class FrappeRealtimeClient {
     _eventControllers.clear();
     _openTasks.clear();
     _openDocs.clear();
-    
-    // Clear static instance if this is the singleton  
+
+    // Clear static instance if this is the singleton
     if (_instance == this) {
       _instance = null;
-    }  
+    }
   }
 }
