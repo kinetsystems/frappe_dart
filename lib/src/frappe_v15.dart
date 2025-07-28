@@ -15,11 +15,11 @@ class FrappeV15 implements FrappeApi {
   /// Creates a new instance of [FrappeV15].
   FrappeV15({
     required String baseUrl,
-    required String siteName,
+    String? siteName,
     Dio? dio,
     String? cookie,
   })  : _baseUrl = baseUrl,
-        _siteName = siteName,
+        _siteName = siteName ?? '',
         _cookie = cookie,
         _dio = dio ?? Dio();
 
@@ -53,6 +53,14 @@ class FrappeV15 implements FrappeApi {
 
   /// Get the socketio instance for realtime communication (similar to frappe.socketio in JavaScript)
   FrappeRealtimeClient get socketio {
+    if (_siteName.isEmpty) {
+      throw Exception('Site name is required to initialize socketio');
+    }
+
+    if (_cookie == null || _cookie!.isEmpty) {
+      throw Exception('Cookie is required to initialize socketio');
+    }
+
     _socketio ??= FrappeRealtimeClient(
       baseUrl: _baseUrl,
       siteName: _siteName,

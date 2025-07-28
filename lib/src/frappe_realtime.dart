@@ -19,15 +19,12 @@ class FrappeRealtimeClient {
   static FrappeRealtimeClient? _instance;
 
   /// Get the global instance of FrappeRealtimeClient
-  static FrappeRealtimeClient get socketio =>
-      _instance ??= FrappeRealtimeClient._createDefault();
-
-  /// Create a default instance (used for the static getter)
-  FrappeRealtimeClient._createDefault()
-      : _baseUrl = '',
-        _siteName = '',
-        _cookie = '';
-        // _port = 9000;
+  static FrappeRealtimeClient get socketio {
+    if (_instance == null) {
+      throw Exception('FrappeRealtimeClient not initialized');
+    }
+    return _instance!;
+  }
 
   /// Initialize the global instance
   static void initialize({
@@ -36,6 +33,9 @@ class FrappeRealtimeClient {
     required String cookie,
     // int port = 9000,
   }) {
+    // Dispose the instance if it exists
+    _instance?.dispose();
+
     _instance = FrappeRealtimeClient(
       baseUrl: baseUrl,
       siteName: siteName,
