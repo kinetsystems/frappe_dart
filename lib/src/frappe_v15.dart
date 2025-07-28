@@ -13,17 +13,29 @@ import 'package:frappe_dart/src/models/send_email_response.dart';
 /// A class that implements the Frappe API for version 15.
 class FrappeV15 implements FrappeApi {
   /// Creates a new instance of [FrappeV15].
-  FrappeV15({required String baseUrl, Dio? dio, String? cookie})
-    : _baseUrl = baseUrl,
-      _cookie = cookie,
-      _dio = dio ?? Dio();
+  FrappeV15({
+    required String baseUrl,
+    String? siteName,
+    Dio? dio,
+    String? cookie,
+  })  : _baseUrl = baseUrl,
+        _siteName = siteName ?? '',
+        _cookie = cookie,
+        _dio = dio ?? Dio();
 
   String _baseUrl;
+  String _siteName;
   String? _cookie;
   final Dio _dio;
 
+  // Realtime client instance
+  FrappeRealtimeClient? _socketio;
+
   /// The base URL of the Frappe instance.
   String get baseUrl => _baseUrl;
+
+  /// The site name of the Frappe instance.
+  String get siteName => _siteName;
 
   /// The cookie used for authentication.
   String? get cookie => _cookie;
@@ -38,6 +50,25 @@ class FrappeV15 implements FrappeApi {
 
   ///getter of dio
   Dio get dio => _dio;
+
+  /// Get the socketio instance for realtime communication (similar to frappe.socketio in JavaScript)
+  FrappeRealtimeClient get socketio {
+    if (_siteName.isEmpty) {
+      throw Exception('Site name is required to initialize socketio');
+    }
+
+    if (_cookie == null || _cookie!.isEmpty) {
+      throw Exception('Cookie is required to initialize socketio');
+    }
+
+    _socketio ??= FrappeRealtimeClient(
+      baseUrl: _baseUrl,
+      siteName: _siteName,
+      cookie: _cookie ?? '',
+      // port: 9000,
+    );
+    return _socketio!;
+  }
 
   @override
   Future<LoginResponse> login(LoginRequest loginRequest) async {
@@ -59,9 +90,8 @@ class FrappeV15 implements FrappeApi {
         final Map<String, dynamic> headers = response.headers.map;
         if (headers['set-cookie'] != null &&
             headers['set-cookie']![3] != null) {
-          responseBody['user_id'] = headers['set-cookie']![3]
-              .split(';')[0]
-              .split('=')[1];
+          responseBody['user_id'] =
+              headers['set-cookie']![3].split(';')[0].split('=')[1];
           responseBody['cookie'] = headers['set-cookie']![0];
         }
 
@@ -183,7 +213,6 @@ class FrappeV15 implements FrappeApi {
     final url =
         '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_result';
     try {
-
       final response = await _dio.post<Map<String, dynamic>>(
         url,
         options: Options(
@@ -216,11 +245,11 @@ class FrappeV15 implements FrappeApi {
 
   @override
   Future<NumberCardPercentageDifferenceResponse>
-  getNumberCardPercentageDifference(String doc, String filters, String result) async {
+      getNumberCardPercentageDifference(
+          String doc, String filters, String result) async {
     final url =
         '$_baseUrl/api/method/frappe.desk.doctype.number_card.number_card.get_percentage_difference';
     try {
-
       final response = await _dio.post<Map<String, dynamic>>(
         url,
         options: Options(
@@ -930,8 +959,7 @@ class FrappeV15 implements FrappeApi {
     required String method,
   }) async {
     try {
-      final payload =
-          'method=$method'
+      final payload = 'method=$method'
           '&source_names=${Uri.encodeComponent(jsonEncode(sourceName))}'
           '&target_doc=${Uri.encodeComponent(json.encode(targetDoc))}';
 
