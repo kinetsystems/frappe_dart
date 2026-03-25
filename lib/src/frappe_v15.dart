@@ -1093,4 +1093,346 @@ class FrappeV15 implements FrappeApi {
       throw Exception('An error occurred while running doc method: $e');
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> insert(InsertRequest insertRequest) async {
+    final url = '$baseUrl/api/method/frappe.client.insert';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: insertRequest.toMap(),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to insert document. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while inserting document: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> setValue(SetValueRequest setValueRequest) async {
+    final url = '$baseUrl/api/method/frappe.client.set_value';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: setValueRequest.toMap(),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to set value. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while setting value: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> renameDoc(
+    RenameDocRequest renameDocRequest,
+  ) async {
+    final url = '$baseUrl/api/method/frappe.client.rename_doc';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: renameDocRequest.toMap(),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to rename document. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while renaming document: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> submitDoc(
+    SubmitDocRequest submitDocRequest,
+  ) async {
+    final url = '$baseUrl/api/method/frappe.client.submit';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: submitDocRequest.toMap(),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to submit document. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while submitting document: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> cancelDoc(
+    CancelDocRequest cancelDocRequest,
+  ) async {
+    final url = '$baseUrl/api/method/frappe.client.cancel';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: cancelDocRequest.toMap(),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to cancel document. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while canceling document: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getResourceList(
+    String doctype, {
+    List<String>? fields,
+    Map<String, dynamic>? filters,
+    int? limitStart,
+    int? limitPageLength,
+    String? orderBy,
+  }) async {
+    final queryParams = <String, dynamic>{};
+    if (fields != null && fields.isNotEmpty) {
+      queryParams['fields'] = jsonEncode(fields);
+    }
+    if (filters != null && filters.isNotEmpty) {
+      queryParams['filters'] = jsonEncode(filters);
+    }
+    if (limitStart != null) {
+      queryParams['limit_start'] = limitStart.toString();
+    }
+    if (limitPageLength != null) {
+      queryParams['limit_page_length'] = limitPageLength.toString();
+    }
+    if (orderBy != null) {
+      queryParams['order_by'] = orderBy;
+    }
+
+    final url = '$baseUrl/api/resource/$doctype';
+
+    try {
+      final response = await dio.get<Map<String, dynamic>>(
+        url,
+        queryParameters: queryParams,
+        options: Options(
+          headers: {
+            'Cookie': cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to get resource list. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while getting resource list: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getResource(
+    String doctype,
+    String name,
+  ) async {
+    final url = '$baseUrl/api/resource/$doctype/$name';
+
+    try {
+      final response = await dio.get<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Cookie': cookie ?? '',
+          },
+        ),
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to get resource. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while getting resource: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> createResource(
+    String doctype,
+    Map<String, dynamic> data,
+  ) async {
+    final url = '$baseUrl/api/resource/$doctype';
+
+    try {
+      final response = await dio.post<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to create resource. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while creating resource: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> updateResource(
+    String doctype,
+    String name,
+    Map<String, dynamic> data,
+  ) async {
+    final url = '$baseUrl/api/resource/$doctype/$name';
+
+    try {
+      final response = await dio.put<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': cookie ?? '',
+          },
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        return response.data!;
+      } else {
+        throw Exception(
+          'Failed to update resource. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while updating resource: $e');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> deleteResource(
+    String doctype,
+    String name,
+  ) async {
+    final url = '$baseUrl/api/resource/$doctype/$name';
+
+    try {
+      final response = await dio.delete<Map<String, dynamic>>(
+        url,
+        options: Options(
+          headers: {
+            'Cookie': cookie ?? '',
+          },
+        ),
+      );
+
+      // REST DELETE can return 200 OK, 202 Accepted, or 204 No Content
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.accepted ||
+          response.statusCode == HttpStatus.noContent) {
+        return response.data ?? {'message': 'ok'};
+      } else {
+        throw Exception(
+          'Failed to delete resource. HTTP Status: ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      throw Exception(handleDioError(e));
+    } catch (e) {
+      throw Exception('An error occurred while deleting resource: $e');
+    }
+  }
+  
 }

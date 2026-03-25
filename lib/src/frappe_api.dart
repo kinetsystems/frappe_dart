@@ -43,7 +43,8 @@ abstract class FrappeApi {
   /// Takes the [name] of the number card and
   /// returns a [NumberCardPercentageDifferenceResponse].
   Future<NumberCardPercentageDifferenceResponse>
-  getNumberCardPercentageDifference(String doc, String filters, String result);
+      getNumberCardPercentageDifference(
+          String doc, String filters, String result);
 
   /// Retrieves details of a specific doctype.
   ///
@@ -218,4 +219,79 @@ abstract class FrappeApi {
     required Map<String, dynamic> data,
     required String method,
   });
+
+  /// Inserts a new document via frappe.client.insert.
+  ///
+  /// Takes an [InsertRequest] object as input and returns a [Map] with the created document.
+  Future<Map<String, dynamic>> insert(InsertRequest insertRequest);
+
+  /// Sets field value(s) of a document via frappe.client.set_value.
+  ///
+  /// Takes a [SetValueRequest] object as input and returns a [Map] with the updated document.
+  Future<Map<String, dynamic>> setValue(SetValueRequest setValueRequest);
+
+  /// Renames a document via frappe.client.rename_doc.
+  ///
+  /// Takes a [RenameDocRequest] object as input and returns a [Map] with the renamed document.
+  Future<Map<String, dynamic>> renameDoc(RenameDocRequest renameDocRequest);
+
+  /// Submits a document via frappe.client.submit.
+  ///
+  /// Takes a [SubmitDocRequest] object as input and returns a [Map] with the submitted document.
+  Future<Map<String, dynamic>> submitDoc(SubmitDocRequest submitDocRequest);
+
+  /// Cancels a submitted document via frappe.client.cancel.
+  ///
+  /// Takes a [CancelDocRequest] object as input and returns a [Map] with the cancelled document.
+  Future<Map<String, dynamic>> cancelDoc(CancelDocRequest cancelDocRequest);
+
+  /// Gets a list of documents from a doctype via REST resource API.
+  ///
+  /// Takes a [doctype] as parameter and optional query parameters.
+  /// Returns a [Map] with the list of documents.
+  Future<Map<String, dynamic>> getResourceList(
+    String doctype, {
+    List<String>? fields,
+    Map<String, dynamic>? filters,
+    int? limitStart,
+    int? limitPageLength,
+    String? orderBy,
+  });
+
+  /// Gets a single document by doctype and name via REST resource API.
+  ///
+  /// Takes [doctype] and [name] as parameters.
+  /// Returns a [Map] with the document data.
+  Future<Map<String, dynamic>> getResource(
+    String doctype,
+    String name,
+  );
+
+  /// Creates a new document via REST resource API.
+  ///
+  /// Takes a [doctype] and [data] Map as parameters.
+  /// Returns a [Map] with the created document.
+  Future<Map<String, dynamic>> createResource(
+    String doctype,
+    Map<String, dynamic> data,
+  );
+
+  /// Updates a document via REST resource API.
+  ///
+  /// Takes [doctype], [name], and [data] Map as parameters.
+  /// Returns a [Map] with the updated document.
+  Future<Map<String, dynamic>> updateResource(
+    String doctype,
+    String name,
+    Map<String, dynamic> data,
+  );
+
+  /// Deletes a document via REST resource API.
+  ///
+  /// Takes [doctype] and [name] as parameters.
+  /// Returns a [Map] with the deletion result.
+  Future<Map<String, dynamic>> deleteResource(
+    String doctype,
+    String name,
+  );
 }
