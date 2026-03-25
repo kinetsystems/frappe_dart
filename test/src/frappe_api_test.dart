@@ -209,7 +209,7 @@ void main() {
     );
 
     // Call API method
-    final response = await frappeApi.getNumberCard(cardName);
+    final response = await frappeApi.getNumberCard(cardName, '');
 
     // Assertions
     expect(response.message, responseData.message);
