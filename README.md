@@ -7,7 +7,7 @@ A comprehensive Dart wrapper for interacting with the Frappe API, providing easy
 ## Example App
 
 Looking for a working example? Check out the official example app here:  
-👉 [https://github.com/kinetsystems/frappify](https://github.com/kinetsystems/frappify)
+👉 [https://github.com/frappifyapp/frappify](https://github.com/frappifyapp/frappify)
 
 This separate repository demonstrates how to integrate and use `frappe_dart` in a real-world Flutter application.
 
